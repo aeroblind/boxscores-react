@@ -1,19 +1,43 @@
 import React from 'react';
 import { parse } from 'node-html-parser';
 
-import FlexBox from '../../styled/flexbox';
-import FlexItem from '../../styled/flexItem';
-import LineScoreColumn from '../../styled/lineScoreColumn';
-import LineScoreHorRule from '../../styled/lineScoreHorRule';
-
-
-
 const BattingSummary = ({ batting, away_sname, home_sname }) => {
   
-  console.log(batting[0].text_data);
-  const test = parse(batting[0].text_data);
 
-  console.log(test);
+  const trimRawText = (text) => {
+    const trimmedString = text.substring(1, text.length-1).trim();
+    return trimmedString.split(';')
+  }
+  
+  const buildTextDataAsJson = () => {
+    const textData = {};
+    var sectionKey = '';
+    var catagoryKey = '';
+    batting.map(teamBatting => {
+      const element = parse(teamBatting.text_data);
+      element.childNodes.map(childNode => {
+        if (childNode.childNodes.length > 0) {
+          if (childNode.tagName === 'b' && (childNode.childNodes[0].rawText === "BATTING") || childNode.childNodes[0].rawText === "FIELDING") {
+            sectionKey = childNode.childNodes[0].rawText;
+            if(!textData[sectionKey]) {
+              textData[sectionKey] = {};
+            }
+          } else if (childNode.tagName === 'b') {
+            catagoryKey = childNode.childNodes[0].rawText;
+            if(!textData[sectionKey][catagoryKey]) {
+              textData[sectionKey][catagoryKey] = [];
+            }
+          } 
+        } else {
+          if (childNode.nodeType === 3) {
+            textData[sectionKey][catagoryKey].push(...trimRawText(childNode.rawText));
+          }
+        }
+      })
+    })
+  
+    return textData;
+  }
 
   const isThirdColumn = (index) => {
     return index % 3 === 0;
@@ -63,10 +87,30 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
     )
   };
 
+  const listBattingTextData = () => {
+    const textData = buildTextDataAsJson();
+    const element = []
+
+    Object.keys(textData.FIELDING).map(key => {
+      element.push(<span><b>{key}: </b>{textData.FIELDING[key].map((value, index) => {
+        if (textData.FIELDING[key].length === 1 && index === 0) {
+          return <span>{value} </span>
+        } else if ((textData.FIELDING[key].length >= 0 && index === 0) || (index >= 0 && index < textData.FIELDING[key].length - 1)) {
+          return <span>{value}, </span>
+        } else {
+          return <span>{value}</span>
+        }
+      })} </span>)
+    })
+
+    return element;
+  }
+
   return (
     <div>
       {listTeamBatting(away_sname, batting[0].batter)}
       {listTeamBatting(home_sname, batting[1].batter)}
+      {listBattingTextData()}
     </div>
   )
 }

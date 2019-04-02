@@ -1,11 +1,6 @@
 import React from 'react';
 
 import FlexBox from '../../styled/flexbox';
-import FlexItem from '../../styled/flexItem';
-import LineScoreColumn from '../../styled/lineScoreColumn';
-import LineScoreHorRule from '../../styled/lineScoreHorRule';
-
-
 
 const LineScore = ({ linescore, home_team_code, away_team_code }) => {
   
