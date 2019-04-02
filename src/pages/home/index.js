@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import BoxScore from '../../components/boxScore';
+import fakeData from '../../../fakeData.json';
 
 const MLBBoxscores = require('mlbboxscores');
 
+console.log(fakeData.data.boxscore);
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,10 @@ class Home extends Component {
     }
   }
   componentDidMount(){
-    this.getBoxScores();
+    //this.getBoxScores();
+    this.setState({
+      boxScores: [fakeData.data.boxscore]
+    })
   }
 
   getBoxScores() {
@@ -38,8 +43,8 @@ class Home extends Component {
 
   displayBoxScores() {
     const elements = [];
-    this.state.boxScores.map(boxScore => {
-      elements.push(<BoxScore key={boxScore.game_id} data={boxScore} />)
+    this.state.boxScores.map((boxScore, index) => {
+      elements.push(<BoxScore key={index} data={boxScore} />)
     })
     return elements;
   }
@@ -47,7 +52,7 @@ class Home extends Component {
   render() {
     const { isLoading } = this.state;
     return (
-      <div>
+      <div style={{width: '300px'}}>
         { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
       </div>
     )
