@@ -10,4 +10,6 @@ export default styled.div`
   margin: ${props => props.margin || '0' };
   flex-wrap: ${props => props.flexWrap || 'nowrap' };
   align-items: ${props => props.alignItems || 'stretch' };
+  align-content: ${props => props.alignContent || 'stretch' };
+
 `;
