@@ -1,6 +1,5 @@
 import { parse } from 'node-html-parser';
 import React from 'react';
-import _ from 'lodash';
 
 const trimRawText = (text) => {
   const trimmedString = text.substring(1, text.length-1).trim();

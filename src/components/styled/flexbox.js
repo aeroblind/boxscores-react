@@ -8,4 +8,6 @@ export default styled.div`
   flex-grow: ${props => props.flexGrow || 0 };
   flex-direction: ${props => props.flexDirection || 'row' };
   margin: ${props => props.margin || '0' };
+  flex-wrap: ${props => props.flexWrap || 'nowrap' };
+  align-items: ${props => props.alignItems || 'stretch' };
 `;

@@ -2,12 +2,13 @@ import React from 'react';
 import ScoreTitle from './scoreTitle';
 import LineScore from './lineScore';
 import Container from '../styled/container';
+
 import BattingSummary from './battingSummary';
 import PitchingSummary from './pitchingSummary';
 import GameInfo from './gameInfo';
 
 
-const BoxScore = ({data}) => {
+const BoxScore = ({data, width}) => {
   return (
     <Container fontFamily="Georgia" fontSize='12px'>
       <ScoreTitle
