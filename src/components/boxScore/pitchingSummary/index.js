@@ -1,4 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const PitchStatTH = styled.th`
+  text-align: ${props => props.textAlign || 'right'};
+  width: ${props => props.width || '5%'};
+`;
 
 const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
   
@@ -15,14 +21,14 @@ const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
       <table style={{width:"100%"}}>
         <tbody>
         <tr>
-          <th style={{textAlign: "left"}}>{name}</th>
-          <th style={{textAlign: "right"}}>IP</th>
-          <th style={{textAlign: "right"}}>H</th>
-          <th style={{textAlign: "right"}}>ER</th>
-          <th style={{textAlign: "right"}}>BB</th>
-          <th style={{textAlign: "right"}}>SO</th>
-          <th style={{textAlign: "right"}}>NP</th>
-          <th style={{textAlign: "right"}}>ERA</th>
+          <PitchStatTH textAlign="left" width="auto">{name}</PitchStatTH>
+          <PitchStatTH>IP</PitchStatTH>
+          <PitchStatTH>H</PitchStatTH>
+          <PitchStatTH>ER</PitchStatTH>
+          <PitchStatTH>BB</PitchStatTH>
+          <PitchStatTH>SO</PitchStatTH>
+          <PitchStatTH>NP</PitchStatTH>
+          <PitchStatTH>ERA</PitchStatTH>
         </tr>
         {pitchers.map(pitcher => (
           <tr key={pitcher.id}>

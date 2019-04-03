@@ -1,21 +1,27 @@
 import React from 'react';
 import * as helper from '../../../util/summaryHelpers';
+import styled from 'styled-components';
+
+const BatStatTH = styled.th`
+  text-align: ${props => props.textAlign || 'right'};
+  width: ${props => props.width || '8%'};
+`;
 
 const BattingSummary = ({ batting, away_sname, home_sname }) => {
-  
+
   const listTeamBatting = (name, batters) => {
     return(
       <table style={{width:"100%"}}>
         <tbody>
         <tr>
-          <th style={{textAlign: "left"}}>{name}</th>
-          <th style={{textAlign: "right"}}>AB</th>
-          <th style={{textAlign: "right"}}>R</th>
-          <th style={{textAlign: "right"}}>H</th>
-          <th style={{textAlign: "right"}}>BI</th>
-          <th style={{textAlign: "right"}}>BB</th>
-          <th style={{textAlign: "right"}}>SO</th>
-          <th style={{textAlign: "right"}}>AVG</th>
+          <BatStatTH textAlign={"left"} width='auto'>{name}</BatStatTH>
+          <BatStatTH>AB</BatStatTH>
+          <BatStatTH>R</BatStatTH>
+          <BatStatTH>H</BatStatTH>
+          <BatStatTH>BI</BatStatTH>
+          <BatStatTH>BB</BatStatTH>
+          <BatStatTH>SO</BatStatTH>
+          <BatStatTH>AVG</BatStatTH>
         </tr>
         {batters.map(batter => (
           <tr key={batter.id}>

@@ -52,7 +52,7 @@ class Home extends Component {
   render() {
     const { isLoading } = this.state;
     return (
-      <div style={{width: '300px'}}>
+      <div style={{width: '275px'}}>
         { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
       </div>
     )

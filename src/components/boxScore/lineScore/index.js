@@ -23,8 +23,8 @@ const LineScore = ({ linescore, home_team_code, away_team_code }) => {
       key={index} 
       margin={isThirdColumn(index + 1) ? '0 5px 0 0' : '0'}
       flexDirection="column">
-        <span>{ inning.away }</span>
-        <span>{ inning.home }</span>
+        <span><b>{ inning.away }</b></span>
+        <span><b>{ inning.home }</b></span>
     </FlexBox>
   ));
   
@@ -34,29 +34,29 @@ const LineScore = ({ linescore, home_team_code, away_team_code }) => {
       <hr style={{margin: '0 0 3px 0'}}/>
       <FlexBox>
         <FlexBox flexGrow={1} flexDirection="column">
-          <span>{ away_team_code.toUpperCase() }</span>
-          <span>{ home_team_code.toUpperCase() }</span>
+          <span><b>{ away_team_code.toUpperCase() }</b></span>
+          <span><b>{ home_team_code.toUpperCase() }</b></span>
         </FlexBox>
         <FlexBox justifyContent="flex-end" flexGrow={2}>
           <FlexBox>
             { listInnings }
           </FlexBox>
-          <FlexBox flexDirection="column" margin={'0 5px 0 0'}>
-            <span>-</span>
-            <span>-</span>
+          <FlexBox flexDirection="column" margin={'0 10px 0 5px'}>
+            <span><b>-</b></span>
+            <span><b>-</b></span>
           </FlexBox>
           <FlexBox>
-            <FlexBox flexDirection="column" margin={'0 5px 0 0'}>
-              <span>{away_team_runs}</span>
-              <span>{home_team_runs}</span>
+            <FlexBox flexDirection="column" margin={'0 10px 0 0'}>
+              <span><b>{away_team_runs}</b></span>
+              <span><b>{home_team_runs}</b></span>
             </FlexBox>
-            <FlexBox flexDirection="column" margin={'0 5px 0 0'}>
-              <span>{away_team_hits}</span>
-              <span>{home_team_hits}</span>
+            <FlexBox flexDirection="column" margin={'0 10px 0 0'}>
+              <span><b>{away_team_hits}</b></span>
+              <span><b>{home_team_hits}</b></span>
             </FlexBox>
             <FlexBox flexDirection="column">
-              <span>{away_team_errors}</span>
-              <span>{home_team_errors}</span>
+              <span><b>{away_team_errors}</b></span>
+              <span><b>{home_team_errors}</b></span>
             </FlexBox>
           </FlexBox>
         </FlexBox>
