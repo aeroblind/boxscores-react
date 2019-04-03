@@ -3,7 +3,7 @@ import ScoreTitle from './scoreTitle';
 import LineScore from './lineScore';
 import Container from '../styled/container';
 import BattingSummary from './battingSummary';
-
+import PitchingSummary from './pitchingSummary';
 
 const BoxScore = ({data}) => {
   return (
@@ -21,6 +21,11 @@ const BoxScore = ({data}) => {
       />
       <BattingSummary
         batting={ data.batting } 
+        away_sname={ data.away_sname }
+        home_sname={ data.home_sname }
+      />
+      <PitchingSummary
+        pitching={ data.pitching } 
         away_sname={ data.away_sname }
         home_sname={ data.home_sname }
       />

@@ -3,7 +3,7 @@ import { parse } from 'node-html-parser';
 
 const BattingSummary = ({ batting, away_sname, home_sname }) => {
   
-
+  console.log('test');
   const trimRawText = (text) => {
     const trimmedString = text.substring(1, text.length-1).trim();
     return trimmedString.split(';')
@@ -17,7 +17,11 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
       const element = parse(teamBatting.text_data);
       element.childNodes.map(childNode => {
         if (childNode.childNodes.length > 0) {
-          if (childNode.tagName === 'b' && (childNode.childNodes[0].rawText === "BATTING") || childNode.childNodes[0].rawText === "FIELDING") {
+          if (childNode.tagName === 'b' &&  (
+              childNode.childNodes[0].rawText === "BATTING") ||
+              childNode.childNodes[0].rawText === "FIELDING" ||
+              childNode.childNodes[0].rawText === "BASERUNNING"
+            ) {
             sectionKey = childNode.childNodes[0].rawText;
             if(!textData[sectionKey]) {
               textData[sectionKey] = {};
@@ -89,19 +93,22 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
 
   const listBattingTextData = () => {
     const textData = buildTextDataAsJson();
-    const element = []
-
-    Object.keys(textData.FIELDING).map(key => {
-      element.push(<span><b>{key}: </b>{textData.FIELDING[key].map((value, index) => {
-        if (textData.FIELDING[key].length === 1 && index === 0) {
-          return <span>{value} </span>
-        } else if ((textData.FIELDING[key].length >= 0 && index === 0) || (index >= 0 && index < textData.FIELDING[key].length - 1)) {
-          return <span>{value}, </span>
-        } else {
-          return <span>{value}</span>
-        }
-      })} </span>)
-    })
+    const element = [];
+    [textData.FIELDING, textData.BATTING, textData.BASERUNNING].map(textData => {
+      if (Object.keys(textData).length > 0) {
+        Object.keys(textData).map(key => {
+          element.push(<span><b>{key}: </b>{textData[key].map((value, index) => {
+            if (textData[key].length === 1 && index === 0) {
+              return <span>{value} </span>
+            } else if ((textData[key].length >= 0 && index === 0) || (index >= 0 && index < textData[key].length - 1)) {
+              return <span>{value}, </span>
+            } else {
+              return <span>{value}</span>
+            }
+          })} </span>)
+        })
+      }
+    });
 
     return element;
   }
