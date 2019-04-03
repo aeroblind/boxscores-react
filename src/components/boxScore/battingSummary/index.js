@@ -42,7 +42,6 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
 
   const listBattingTextData = () => {
     const textData = helper.parseTextDataFromList(batting, ['FIELDING', 'BATTING', 'BASERUNNING'], ['E', 'DP', '2B', 'HR', 'RBI', 'Team LOB', 'SB', 'CS'])
-    console.log(textData);
     return helper.createDisplayElements([textData.FIELDING || {}, textData.BATTING, (textData.BASERUNNING || {})])
   }
 
