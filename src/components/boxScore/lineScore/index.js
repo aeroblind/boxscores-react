@@ -14,8 +14,6 @@ const LineScore = ({ linescore, home_team_code, away_team_code }) => {
     home_team_errors,
   } = linescore;
 
-  console.log(inning_line_score);
-
   const isThirdColumn = (index) => {
     return index % 3 === 0;
   };

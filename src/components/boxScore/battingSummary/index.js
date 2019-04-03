@@ -1,65 +1,8 @@
 import React from 'react';
-import { parse } from 'node-html-parser';
+import * as helper from '../../../util/summaryHelpers';
 
 const BattingSummary = ({ batting, away_sname, home_sname }) => {
   
-  console.log('test');
-  const trimRawText = (text) => {
-    const trimmedString = text.substring(1, text.length-1).trim();
-    return trimmedString.split(';')
-  }
-  
-  const buildTextDataAsJson = () => {
-    const textData = {};
-    var sectionKey = '';
-    var catagoryKey = '';
-    batting.map(teamBatting => {
-      const element = parse(teamBatting.text_data);
-      element.childNodes.map(childNode => {
-        if (childNode.childNodes.length > 0) {
-          if (childNode.tagName === 'b' &&  (
-              childNode.childNodes[0].rawText === "BATTING") ||
-              childNode.childNodes[0].rawText === "FIELDING" ||
-              childNode.childNodes[0].rawText === "BASERUNNING"
-            ) {
-            sectionKey = childNode.childNodes[0].rawText;
-            if(!textData[sectionKey]) {
-              textData[sectionKey] = {};
-            }
-          } else if (childNode.tagName === 'b') {
-            catagoryKey = childNode.childNodes[0].rawText;
-            if(!textData[sectionKey][catagoryKey]) {
-              textData[sectionKey][catagoryKey] = [];
-            }
-          } 
-        } else {
-          if (childNode.nodeType === 3) {
-            textData[sectionKey][catagoryKey].push(...trimRawText(childNode.rawText));
-          }
-        }
-      })
-    })
-  
-    return textData;
-  }
-
-  const isThirdColumn = (index) => {
-    return index % 3 === 0;
-  };
-
-  // const listInnings = inning_line_score.map((inning, index) => (
-  //   <FlexBox 
-  //     key={index} 
-  //     margin={isThirdColumn(index + 1) ? '0 5px 0 0' : '0'}
-  //     flexDirection="column">
-  //       <span>{ inning.away }</span>
-  //       <span>{ inning.home }</span>
-  //   </FlexBox>
-  // ));
-  const getNameAndPosition = (batter) => {
-    const { name, pos } = batter;
-    const names = name_display_first_last.split('/')
-  }
   const listTeamBatting = (name, batters) => {
     return(
       <table style={{width:"100%"}}>
@@ -92,25 +35,8 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
   };
 
   const listBattingTextData = () => {
-    const textData = buildTextDataAsJson();
-    const element = [];
-    [textData.FIELDING, textData.BATTING, textData.BASERUNNING].map(textData => {
-      if (Object.keys(textData).length > 0) {
-        Object.keys(textData).map(key => {
-          element.push(<span><b>{key}: </b>{textData[key].map((value, index) => {
-            if (textData[key].length === 1 && index === 0) {
-              return <span>{value} </span>
-            } else if ((textData[key].length >= 0 && index === 0) || (index >= 0 && index < textData[key].length - 1)) {
-              return <span>{value}, </span>
-            } else {
-              return <span>{value}</span>
-            }
-          })} </span>)
-        })
-      }
-    });
-
-    return element;
+    const textData = helper.parseTextDataFromList(batting, ['FIELDING', 'BATTING', 'BASERUNNING'])
+    return helper.createDisplayElements([textData.FIELDING, textData.BATTING, textData.BASERUNNING])
   }
 
   return (

@@ -4,6 +4,8 @@ import LineScore from './lineScore';
 import Container from '../styled/container';
 import BattingSummary from './battingSummary';
 import PitchingSummary from './pitchingSummary';
+import GameInfo from './gameInfo';
+
 
 const BoxScore = ({data}) => {
   return (
@@ -26,6 +28,11 @@ const BoxScore = ({data}) => {
       />
       <PitchingSummary
         pitching={ data.pitching } 
+        away_sname={ data.away_sname }
+        home_sname={ data.home_sname }
+      />
+      <GameInfo
+        gameInfo={ data.game_info } 
         away_sname={ data.away_sname }
         home_sname={ data.home_sname }
       />
