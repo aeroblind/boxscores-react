@@ -35,7 +35,7 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
   };
 
   const listBattingTextData = () => {
-    const textData = helper.parseTextDataFromList(batting, ['FIELDING', 'BATTING', 'BASERUNNING'])
+    const textData = helper.parseTextDataFromList(batting, ['FIELDING', 'BATTING', 'BASERUNNING'], ['E', 'DP', '2B', 'HR', 'RBI', 'Team LOB', 'SB', 'CS'])
     return helper.createDisplayElements([textData.FIELDING, textData.BATTING, textData.BASERUNNING])
   }
 

@@ -7,7 +7,7 @@ const trimRawText = (text) => {
   return trimmedString.split(';')
 }
 
-export function parseTextData(rawTextData) {
+export function parseTextData(rawTextData, allowedCategories) {
   const textData = {};
   var catagoryKey = '';
   const element = parse(rawTextData);
@@ -15,12 +15,12 @@ export function parseTextData(rawTextData) {
     if (childNode.childNodes.length > 0) {
       if (childNode.tagName === 'b') {
         catagoryKey = childNode.childNodes[0].rawText;
-        if(!textData[catagoryKey]) {
+        if(!textData[catagoryKey] && allowedCategories.includes(catagoryKey)) {
           textData[catagoryKey] = [];
         }
       } 
     } else {
-      if (childNode.nodeType === 3) {
+      if (childNode.nodeType === 3 && allowedCategories.includes(catagoryKey)) {
         textData[catagoryKey].push(...trimRawText(childNode.rawText));
       }
     }
@@ -28,7 +28,7 @@ export function parseTextData(rawTextData) {
   return textData;
 }
 
-export function parseTextDataFromList(sections, sectionNames) {
+export function parseTextDataFromList(sections, sectionNames, allowedCategories) {
   const textData = {};
   var sectionKey = sectionNames[0];
   var catagoryKey = '';
@@ -43,12 +43,12 @@ export function parseTextDataFromList(sections, sectionNames) {
           }
         } else if (childNode.tagName === 'b') {
           catagoryKey = childNode.childNodes[0].rawText;
-          if(!textData[sectionKey][catagoryKey]) {
+          if(!textData[sectionKey][catagoryKey] && allowedCategories.includes(catagoryKey)) {
             textData[sectionKey][catagoryKey] = [];
           }
         } 
       } else {
-        if (childNode.nodeType === 3) {
+        if (childNode.nodeType === 3 && allowedCategories.includes(catagoryKey)) {
           textData[sectionKey][catagoryKey].push(...trimRawText(childNode.rawText));
         }
       }

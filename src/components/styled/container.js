@@ -5,4 +5,6 @@ export default styled.div`
   margin: ${props => props.margin || '0'};
   box-shadow: ${props => props.boxShadow ? '0 0 5px 1px rgba(0, 0, 0, .25)' : '0'};
   overflow: ${props => props.overflow || 'hidden'};
+  font-family: ${props => props.fontFamily || ''};
+  font-size: ${props => props.fontSize || '16px'};
 `;
