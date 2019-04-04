@@ -1,7 +1,8 @@
 const path = require("path");
 const webpack = require("webpack");
 const clearWebpackPlugin = require('clean-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
@@ -26,6 +27,9 @@ module.exports = {
     ],
   },
   resolve: { extensions: ['*', '.js', '.jsx'] },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+  },
   plugins: [
     new clearWebpackPlugin(['dist']),
     new webpack.HotModuleReplacementPlugin(),

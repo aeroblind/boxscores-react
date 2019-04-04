@@ -6,8 +6,6 @@ import moment from 'moment';
 //  import fakeData from '../../../fakeData.json';
 import * as mlbApi from '../../api/mlbApi';
 
-const MLBBoxscores = require('mlbboxscores');
-
 class Home extends Component {
   constructor(props) {
     super(props);
