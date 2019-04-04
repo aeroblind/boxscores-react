@@ -8,7 +8,9 @@
     "prestart": "npm run gcp-build",
     "start": "node server.js",
     "start:dev": "npm run devServer",
-    "devServer": "webpack-dev-server --config webpack.config.js --open --hot --inline"
+    "devServer": "webpack-dev-server --config webpack.config.js --open --hot --inline",
+    "set": "gcloud config set project sport-box-scores",
+    "deploy": "npm run set && gcloud app deploy"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
