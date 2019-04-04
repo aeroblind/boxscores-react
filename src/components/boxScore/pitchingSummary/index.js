@@ -12,6 +12,21 @@ const tableStyle = {
   margin: "2px 0 0 0"
 }
 
+const getInningsPitched = (outs) => {
+  const style = {
+    fontSize: '8px',
+  }
+  if (outs >= 3 && outs % 3 === 0) {
+    return <span>{outs/3}</span>
+  } else if (outs < 3 && outs % 3 > 0) {
+    return <span style={style}>{`${outs % 3}/3`}</span>
+  } else if (outs === 0) {
+    return <span>0</span>
+  } else {
+    return <span>{Math.floor(outs/3)}<span style={style}>{`${outs % 3}/3`}</span></span>
+  }
+}
+
 const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
   
   const getPitcherNote = (pitcher) => {
@@ -39,7 +54,7 @@ const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
         {pitchers.map(pitcher => (
           <tr key={pitcher.id}>
             <td style={{textAlign: "left"}}>{`${pitcher.name} ${getPitcherNote(pitcher)}`}</td>
-            <td style={{textAlign: "right"}}>{pitcher.s_ip}</td>
+            <td style={{textAlign: "right"}}>{getInningsPitched(pitcher.out)}</td>
             <td style={{textAlign: "right"}}>{pitcher.h}</td>
             <td style={{textAlign: "right"}}>{pitcher.er}</td>
             <td style={{textAlign: "right"}}>{pitcher.bb}</td>

@@ -8,7 +8,7 @@ import PitchingSummary from './pitchingSummary';
 import GameInfo from './gameInfo';
 
 
-const BoxScore = ({data, width}) => {
+const BoxScore = ({data, width}) => { 
   return (
     <Container fontFamily="Georgia" fontSize='10px'>
       <ScoreTitle
