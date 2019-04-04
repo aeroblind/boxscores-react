@@ -3,8 +3,14 @@ import styled from 'styled-components';
 
 const PitchStatTH = styled.th`
   text-align: ${props => props.textAlign || 'right'};
-  width: ${props => props.width || '5%'};
+  width: ${props => props.width || '9%'};
 `;
+
+const tableStyle = {
+  width:"100%",
+  borderCollapse:"collapse",
+  margin: "2px 0 0 0"
+}
 
 const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
   
@@ -18,7 +24,7 @@ const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
 
   const listTeamPitching = (name, pitchers) => {
     return(
-      <table style={{width:"100%"}}>
+      <table style={tableStyle}>
         <tbody>
         <tr>
           <PitchStatTH textAlign="left" width="auto">{name}</PitchStatTH>

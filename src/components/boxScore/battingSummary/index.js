@@ -4,14 +4,20 @@ import styled from 'styled-components';
 
 const BatStatTH = styled.th`
   text-align: ${props => props.textAlign || 'right'};
-  width: ${props => props.width || '8%'};
+  width: ${props => props.width || '9%'};
 `;
+
+const tableStyle = {
+  width:"100%",
+  borderCollapse:"collapse",
+  margin: "2px 0 0 0"
+}
 
 const BattingSummary = ({ batting, away_sname, home_sname }) => {
 
   const listTeamBatting = (name, batters) => {
     return(
-      <table style={{width:"100%"}}>
+      <table style={ tableStyle }>
         <tbody>
         <tr>
           <BatStatTH textAlign={"left"} width='auto'>{name}</BatStatTH>
@@ -47,9 +53,11 @@ const BattingSummary = ({ batting, away_sname, home_sname }) => {
 
   return (
     <div>
-      {listTeamBatting(away_sname, batting[0].batter)}
-      {listTeamBatting(home_sname, batting[1].batter)}
-      {listBattingTextData()}
+      {listTeamBatting(away_sname, batting[1].batter)}
+      {listTeamBatting(home_sname, batting[0].batter)}
+      <div style={{margin: "2px 0 0 0"}}>
+        {listBattingTextData()}
+      </div>
     </div>
   )
 }

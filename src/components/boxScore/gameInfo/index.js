@@ -9,7 +9,7 @@ const GameInfo = ({ gameInfo, away_sname, home_sname }) => {
   }
 
   return (
-    <div>
+    <div style={{margin: "2px 0 0 0"}}>
       {listGameInfoData()}      
     </div>
   )

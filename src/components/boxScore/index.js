@@ -19,8 +19,8 @@ const BoxScore = ({data, width}) => {
       />
       <LineScore 
         linescore={ data.linescore }
-        home_team_code={ data.home_team_code }
-        away_team_code={ data.away_team_code }
+        home_sname={ data.home_sname }
+        away_sname={ data.away_sname }
       />
       <BattingSummary
         batting={ data.batting } 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import FlexBox from '../../styled/flexbox';
 
-const LineScore = ({ linescore, home_team_code, away_team_code }) => {
+const LineScore = ({ linescore, away_sname, home_sname }) => {
   
   const { 
     inning_line_score,
@@ -34,8 +34,8 @@ const LineScore = ({ linescore, home_team_code, away_team_code }) => {
       <hr style={{margin: '0 0 3px 0'}}/>
       <FlexBox>
         <FlexBox flexGrow={1} flexDirection="column">
-          <span><b>{ away_team_code.toUpperCase() }</b></span>
-          <span><b>{ home_team_code.toUpperCase() }</b></span>
+          <span><b>{ away_sname }</b></span>
+          <span><b>{ home_sname }</b></span>
         </FlexBox>
         <FlexBox justifyContent="flex-end" flexGrow={2}>
           <FlexBox>
