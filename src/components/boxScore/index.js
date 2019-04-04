@@ -10,7 +10,7 @@ import GameInfo from './gameInfo';
 
 const BoxScore = ({data, width}) => {
   return (
-    <Container fontFamily="Georgia" fontSize='12px'>
+    <Container fontFamily="Georgia" fontSize='10px'>
       <ScoreTitle
         away_fname={ data.away_fname }
         home_fname= { data.home_fname }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Masonry from 'react-masonry-component';
 import BoxScore from '../../components/boxScore';
 import FlexBox from '../../components/styled/flexbox';
 import moment from 'moment';
@@ -50,7 +51,7 @@ class Home extends Component {
   displayBoxScores() {
     const elements = [];
     this.state.boxScores.map((boxScore, index) => {
-      elements.push(<div style={{width: '250px'}}><BoxScore key={index} data={boxScore}/></div>)
+      elements.push(<div key={index} style={{width: '275px'}}><BoxScore data={boxScore}/></div>)
     })
     return elements;
   }
@@ -58,9 +59,9 @@ class Home extends Component {
   render() {
     const { isLoading } = this.state;
     return (
-      <FlexBox flexWrap="wrap" alignItems="flex-start">
+      <Masonry>
         { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
-      </FlexBox>
+      </Masonry>
     )
   }
 }
