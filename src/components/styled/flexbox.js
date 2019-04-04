@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export default styled.div`
   display: flex;
+  height: 100%;
   overflow: ${props => props.overflow || 'hidden'};
   padding: ${props => props.padding || '0'};
   justify-content: ${props => props.justifyContent || 'flex-start'};
@@ -11,5 +12,5 @@ export default styled.div`
   flex-wrap: ${props => props.flexWrap || 'nowrap' };
   align-items: ${props => props.alignItems || 'stretch' };
   align-content: ${props => props.alignContent || 'stretch' };
-
+  background-color: ${props => props.backgroundColor || '' };
 `;

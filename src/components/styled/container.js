@@ -7,4 +7,7 @@ export default styled.div`
   overflow: ${props => props.overflow || 'hidden'};
   font-family: ${props => props.fontFamily || ''};
   font-size: ${props => props.fontSize || '16px'};
+  background-color: ${props => props.backgroundColor || ''};
+  border-radius: ${props => props.borderRadius || ''};
+  overflow: ${props => props.overflow || 'hidden'};
 `;
