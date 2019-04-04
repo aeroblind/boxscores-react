@@ -3,11 +3,11 @@ import Masonry from 'react-masonry-component';
 import BoxScore from '../../components/boxScore';
 import FlexBox from '../../components/styled/flexbox';
 import moment from 'moment';
-import fakeData from '../../../fakeData.json';
+//  import fakeData from '../../../fakeData.json';
+import * as mlbApi from '../../api/mlbApi';
 
 const MLBBoxscores = require('mlbboxscores');
 
-console.log(fakeData.data.boxscore);
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -17,49 +17,48 @@ class Home extends Component {
 
     this.state = {
       isLoading: false,
-      boxScores: [],
+      boxscores: [],
     }
   }
   componentDidMount(){
     this.getBoxScores();
-    // this.setState({
-    //   boxScores: [fakeData.data.boxscore]
-    // })
   }
 
-  getBoxScores() {
-
+  async getBoxScores() {
     const yesterday = moment().subtract('1', 'day');
-  
     this.setState({
       isLoading: true,
     });
-    var options = {
-      path: `year_${yesterday.format('YYYY')}/month_${yesterday.format('MM')}/day_${yesterday.format('DD')}/`
-    };
-    
-    var mlbboxscores = new MLBBoxscores(options);
-    mlbboxscores.get((err, boxscores) => {
-      //console.log(boxscores[1]);
-      this.setState({
-        isLoading: false,
-        boxScores: boxscores,//[boxscores[1]]
-      })
-    });
+    const date = {
+      year: yesterday.format('YYYY'),
+      month: yesterday.format('MM'),
+      day: yesterday.format('DD'),
+    }
+    const boxscores = await mlbApi.getAllBoxScoresOnDate(date);
+    this.setState({
+      isLoading: false,
+      boxscores,
+    })
   }
 
   displayBoxScores() {
     const elements = [];
-    this.state.boxScores.map((boxScore, index) => {
-      elements.push(<div key={index} style={{width: '275px'}}><BoxScore data={boxScore}/></div>)
+    this.state.boxscores.map((boxscore, index) => {
+      elements.push(<div key={index} style={{width: '275px'}}><BoxScore data={boxscore}/></div>)
     })
     return elements;
   }
 
   render() {
     const { isLoading } = this.state;
+    const options = {
+      isFitWidth: true,
+    }
     return (
-      <Masonry>
+      <Masonry
+        options={options}
+        style={{margin:'0 auto 0 auto'}}
+      >
         { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
       </Masonry>
     )
