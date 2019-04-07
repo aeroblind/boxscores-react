@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Masonry from 'react-masonry-component';
 import BoxScore from '../../components/boxScore';
 import FlexBox from '../../components/styled/flexbox';
+import Container from '../../components/styled/container';
 import moment from 'moment';
 //  import fakeData from '../../../fakeData.json';
 import * as mlbApi from '../../api/mlbApi';
@@ -10,39 +11,56 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.getBoxScores = this.getBoxScores.bind(this);
+    this.getGameScores = this.getGameScores.bind(this);
     this.displayBoxScores = this.displayBoxScores.bind(this);
+    this.isLoading = this.isLoading.bind(this);
 
     this.state = {
       isLoading: false,
-      boxscores: [],
+      scores: [],
+      date: this.getDate(1),
     }
   }
+
   componentDidMount(){
-    this.getBoxScores();
+    this.getGameScores(this.state.date);
   }
 
-  async getBoxScores() {
-    const yesterday = moment().subtract('1', 'day');
-    this.setState({
-      isLoading: true,
-    });
-    const date = {
+  getDate(daysFromToday) {
+    const yesterday = moment().subtract(daysFromToday.toString(), 'day');
+    return {
       year: yesterday.format('YYYY'),
       month: yesterday.format('MM'),
       day: yesterday.format('DD'),
     }
-    const boxscores = await mlbApi.getAllBoxScoresOnDate(date);
+  }
+
+  isLoading(state) {
     this.setState({
-      isLoading: false,
-      boxscores,
+      isLoading: !this.state.isLoading
     })
+  }
+
+  async getGameScores(date) {
+    const scores = await mlbApi.getMiniScoreboardOnDate(date);
+    this.setState({
+      scores,
+      isLoading: false,
+      date: date,
+    });
   }
 
   displayBoxScores() {
     const elements = [];
-    this.state.boxscores.map((boxscore, index) => {
-      elements.push(<div key={index} style={{width: '275px'}}><BoxScore data={boxscore}/></div>)
+    this.state.scores.map((score, index) => {
+      elements.push(
+        <div key={index} style={{width: '275px'}}>
+          <BoxScore
+            score={score}
+            date={this.state.date}
+          />
+        </div>
+      )
     })
     return elements;
   }
@@ -53,12 +71,19 @@ class Home extends Component {
       isFitWidth: true,
     }
     return (
-      <Masonry
-        options={options}
-        style={{margin:'0 auto 0 auto'}}
-      >
+      // <Masonry
+      //   options={options}
+      //   style={{margin:'0 auto 0 auto'}}
+      // >
+      //   { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
+      // </Masonry>
+      <Container padding={'0'}>
+        <FlexBox
+          flexDirection="column"
+          alignItems="center">
         { isLoading ? <div>Loading...</div> : this.displayBoxScores() }
-      </Masonry>
+        </FlexBox>
+      </Container>
     )
   }
 }

@@ -10,4 +10,5 @@ export default styled.div`
   background-color: ${props => props.backgroundColor || ''};
   border-radius: ${props => props.borderRadius || ''};
   overflow: ${props => props.overflow || 'hidden'};
+  flex-grow: ${props => props.flexGrow || 0};
 `;

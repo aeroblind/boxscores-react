@@ -9,6 +9,17 @@ const getGamesUrls = (games) => {
 export function getMiniScoreboardOnDate({year, month, day}) {
   const url = `${baseUrl}/year_${year}/month_${month}/day_${day}/miniscoreboard.json`;
   return axios.get(url)
+    .then(response => {
+      return response.data.data.games.game;
+    })
+}
+
+export function getBoxScoreOnDate({year, month, day}, link) {
+  const url = `${baseUrl}/year_${year}/month_${month}/day_${day}/gid_${link}/boxscore.json`;
+  return axios.get(url)
+    .then(response => {
+      return response.data.data.boxscore;
+    })
 }
 
 export function getAllBoxScoresOnDate({year, month, day}) {
