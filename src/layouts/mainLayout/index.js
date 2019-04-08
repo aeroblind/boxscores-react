@@ -4,12 +4,10 @@ import Header from '../../components/header';
 
 const MainLayout = ({children}) => {
   return (
-    <div>
+    <React.Fragment>
       <Header />
-      <div>
-        {children}
-      </div>
-    </div>
+      {children}
+    </React.Fragment>
   )
 }
 
