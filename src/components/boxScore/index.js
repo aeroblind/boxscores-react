@@ -50,7 +50,6 @@ class BoxScore extends Component {
   render() {
     const { score } = this.props;
     const { boxscore, hasBoxscore, isLoading, isExpanded  } = this.state;
-    console.log(isExpanded);
     return (
       <Container
         fontFamily="Georgia" 

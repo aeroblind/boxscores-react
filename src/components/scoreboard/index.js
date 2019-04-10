@@ -6,22 +6,25 @@ import BoxScore from '../boxScore';
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: ${props => props.gridTemplateColumns || 'repeat(3, 1fr)'};
+  grid-template-columns: ${props => `repeat(${props.gridTemplateColumns}, 1fr)` || 'repeat(1, 1fr)'};
   grid-template-rows: ${props => props.gridTemplateRows || ''};
 `;
 
-const Scoreboard = ({scores, date}) => {
-
+const Scoreboard = ({scoresMatrix, date}) => {
   const displayBoxScores = () => {
     const elements = [];
-    scores.map((score, index) => {
+    scoresMatrix.map((scores, index1)  => {
       elements.push(
-        <div key={index} style={{width: '100%'}}>
-          <BoxScore
-            score={score}
-            date={date}
-          />
-        </div>
+        <Container key={index1} padding='0'>
+          {scores.map((score, index2) => (
+            <div key={index2} style={{width: '100%'}}>
+              <BoxScore
+                score={score}
+                date={date}
+              />
+            </div>
+          ))}
+        </Container>
       )
     })
     return elements;
@@ -29,12 +32,8 @@ const Scoreboard = ({scores, date}) => {
 
   return (
     <Container padding='0'>
-      <GridContainer>
-        <Container>
-          {displayBoxScores()}
-        </Container>
-        <Container backgroundColor='maroon'>TEST</Container>
-        <Container backgroundColor='blue'>TEST</Container>
+      <GridContainer gridTemplateColumns={scoresMatrix.length}>
+        {displayBoxScores()}
       </GridContainer>
     </Container>
   )
