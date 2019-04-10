@@ -3,6 +3,7 @@ import BoxScore from '../../components/boxScore';
 import FlexBox from '../../components/styled/flexbox';
 import Container from '../../components/styled/container';
 import moment from 'moment';
+import Scoreboard from '../../components/scoreboard';
 //  import fakeData from '../../../fakeData.json';
 import * as mlbApi from '../../api/mlbApi';
 
@@ -65,16 +66,17 @@ class Home extends Component {
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, scores, date } = this.state;
     return (
-      <Container padding='0'>
-        <FlexBox
+      <Container padding='0' margin="auto">
+        {/* <FlexBox
           flexDirection="column"
           alignItems="center">
           { isLoading ?
             <div>Loading...</div> : this.displayBoxScores() 
           }
-        </FlexBox>
+        </FlexBox> */}
+        <Scoreboard scores={scores} date={date}></Scoreboard>
       </Container>
     )
   }
