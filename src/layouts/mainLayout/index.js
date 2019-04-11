@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
-import { useSwipeable, Swipeable } from 'react-swipeable'
 import Header from '../../components/header';
 import Container from '../../components/styled/container';
 import devices from '../../util/devices';
@@ -10,12 +9,9 @@ class MainLayout extends Component {
     super(props);
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.handleSwipe = this.handleSwipe.bind(this);
 
     this.state = {
       deviceSize: '',
-      routes: ['/', '/standings', 'stats'],
-      routeIndex: 0,
     }
   }
 
@@ -49,27 +45,6 @@ class MainLayout extends Component {
     }
   }
 
-  handleSwipe(e) {
-    const { routes, routeIndex } = this.state;
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-      if (e.deltaX > 50) {
-        if(routeIndex < 2) {
-          this.props.history.push(routes[routeIndex + 1]);
-          this.setState({
-            routeIndex: routeIndex + 1,
-          })
-        }
-      } else if (e.deltaX < -50) {
-        if(routeIndex > 0) {
-          this.props.history.push(routes[routeIndex - 1]);
-          this.setState({
-            routeIndex: routeIndex - 1,
-          })
-        }
-      }
-    }
-  }
-
   render() {
     const { children } = this.props;
     const { deviceSize } = this.state;
@@ -81,11 +56,9 @@ class MainLayout extends Component {
     return (
       <Container padding="0" height="100%" overflow="auto">
         <Header />
-        <Swipeable onSwiped={this.handleSwipe} style={{height: "100%"}}>
           <Container>
             {clonedChildren}
           </Container>
-        </Swipeable>
       </Container>
     )
   }
