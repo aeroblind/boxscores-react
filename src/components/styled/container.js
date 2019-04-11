@@ -7,8 +7,12 @@ export default styled.div`
   overflow: ${props => props.overflow || 'hidden'};
   font-family: ${props => props.fontFamily || ''};
   font-size: ${props => props.fontSize || '16px'};
+  color: ${props => props.color || ''};
   background-color: ${props => props.backgroundColor || ''};
   border-radius: ${props => props.borderRadius || ''};
+  border-color: ${props => props.borderColor || ''};
+  border-width: ${props => props.borderWidth || ''};
+  border-style: ${props => props.borderStyle || ''};
   overflow: ${props => props.overflow || 'hidden'};
   flex-grow: ${props => props.flexGrow || 0};
 `;

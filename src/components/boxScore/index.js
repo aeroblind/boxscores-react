@@ -8,6 +8,7 @@ import * as mlbApi from '../../api/mlbApi';
 import BattingSummary from './battingSummary';
 import PitchingSummary from './pitchingSummary';
 import GameInfo from './gameInfo';
+import theme from '../../style/theme';
 
 
 class BoxScore extends Component {
@@ -71,9 +72,13 @@ class BoxScore extends Component {
       <Container
         fontFamily="Georgia" 
         fontSize='10px'
+        color={theme.colors.medium}
         backgroundColor="white"
         margin="8px"
         borderRadius="5px"
+        borderColor={theme.colors.medium}
+        borderWidth="1px"
+        borderStyle="solid"
       > 
         <FlexBox
           alignItems="center"
