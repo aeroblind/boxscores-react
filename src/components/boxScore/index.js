@@ -72,7 +72,7 @@ class BoxScore extends Component {
       <Container
         fontFamily="Georgia" 
         fontSize='10px'
-        color={theme.colors.dark}
+        color={hasBoxscore ? theme.colors.dark : theme.colors.medium}
         backgroundColor="white"
         margin="8px"
         borderRadius="5px"
@@ -86,7 +86,7 @@ class BoxScore extends Component {
           onClick={this.didClickBoxscore}
         >
           <Container padding="0">
-            <button disabled={!this.allowedToExpand()} type="button" onClick={this.expandBoxscore}> V </button>
+            {/* <button disabled={!this.allowedToExpand()} type="button" onClick={this.expandBoxscore}> V </button> */}
           </Container>
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle
@@ -99,7 +99,7 @@ class BoxScore extends Component {
         </FlexBox>
         {}
         { isExpanded && hasBoxscore &&
-          <div>
+          <Container padding="0" margin="5px 0 0 0">
             <LineScore 
             linescore={ boxscore.linescore }
             home_sname={ boxscore.home_sname }
@@ -120,7 +120,7 @@ class BoxScore extends Component {
               away_sname={ boxscore.away_sname }
               home_sname={ boxscore.home_sname }
             />
-          </div>
+          </Container>
         }
       </Container>
     )
