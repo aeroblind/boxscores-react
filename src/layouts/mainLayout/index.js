@@ -79,7 +79,7 @@ class MainLayout extends Component {
       })
     ));
     return (
-      <Container padding="0" height="100%">
+      <Container padding="0" height="100%" overflow="auto">
         <Header />
         <Swipeable onSwiped={this.handleSwipe} style={{height: "100%"}}>
           <Container>
