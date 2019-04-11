@@ -16,6 +16,7 @@ class BoxScore extends Component {
     this.getBoxScore = this.getBoxScore.bind(this);
     this.expandBoxscore = this.expandBoxscore.bind(this);
     this.allowedToExpand = this.allowedToExpand.bind(this);
+    this.didClickBoxscore = this.didClickBoxscore.bind(this);
 
     this.state = {
       boxscore: {},
@@ -57,6 +58,12 @@ class BoxScore extends Component {
     return false;
   }
 
+  didClickBoxscore(){
+    this.setState({
+      isExpanded: !this.state.isExpanded,
+    })
+  }
+
   render() {
     const { score } = this.props;
     const { boxscore, hasBoxscore, isExpanded  } = this.state;
@@ -71,6 +78,7 @@ class BoxScore extends Component {
         <FlexBox
           alignItems="center"
           flexDirection="row-reverse"
+          onClick={this.didClickBoxscore}
         >
           <Container padding="0">
             <button disabled={!this.allowedToExpand()} type="button" onClick={this.expandBoxscore}> V </button>
