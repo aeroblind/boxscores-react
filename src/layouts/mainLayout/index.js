@@ -1,12 +1,15 @@
 import React from 'react';
 
 import Header from '../../components/header';
+import Container from '../../components/styled/container';
 
 const MainLayout = ({children}) => {
   return (
     <React.Fragment>
       <Header />
-      {children}
+      <Container>
+        {children}
+      </Container>
     </React.Fragment>
   )
 }

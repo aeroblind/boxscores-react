@@ -7,7 +7,7 @@ const NavBar = styled.div`
   height: 40px;
   width: 100%;
   padding: 5px 0 5px 0;
-  margin: 0 0 20px 0;
+  margin: 0 0 8px 0;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
   font-family: Georgia;
   font-size: 20px;
