@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import BoxScore from '../../components/boxScore';
-import FlexBox from '../../components/styled/flexbox';
+import { withRouter } from "react-router";
 import Container from '../../components/styled/container';
 import moment from 'moment';
 import Scoreboard from '../../components/scoreboard';
-//  import fakeData from '../../../fakeData.json';
 import * as mlbApi from '../../api/mlbApi';
 import devices from '../../util/devices';
 
@@ -37,10 +35,6 @@ class Home extends Component {
   async componentDidMount(){
     await this.getGameScores(this.state.date);
     this.deviceDidChangeSize(this.props.deviceSize);
-  }
-
-  componentWillMount(){
-    window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
   deviceDidChangeSize(size) {
@@ -112,4 +106,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

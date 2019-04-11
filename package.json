@@ -10,7 +10,7 @@
     "start:dev": "npm run devServer",
     "devServer": "webpack-dev-server --config webpack.config.dev.js --open --hot --inline",
     "set": "gcloud config set project sport-box-scores",
-    "deploy": "npm run set && gcloud app deploy"
+    "deploy": "npm run set && gcloud app deploy --quiet"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -29,6 +29,7 @@
     "react-dom": "^16.7.0",
     "react-masonry-component": "^6.2.1",
     "react-router-dom": "^4.3.1",
+    "react-swipeable": "^5.1.0",
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
     "uglifyjs-webpack-plugin": "^2.1.2",
