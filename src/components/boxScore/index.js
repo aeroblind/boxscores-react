@@ -15,12 +15,14 @@ class BoxScore extends Component {
     super(props);
     this.getBoxScore = this.getBoxScore.bind(this);
     this.expandBoxscore = this.expandBoxscore.bind(this);
+    this.allowedToExpand = this.allowedToExpand.bind(this);
 
     this.state = {
       boxscore: {},
       isLoading: false,
       hasBoxscore: false,
-      isExpanded: this.props.expand || false,
+      isExpanded: props.expand || false,
+      isEnabled: props.score.status === 'Final',
     }
   }
 
@@ -47,9 +49,17 @@ class BoxScore extends Component {
     })
   }
 
+  allowedToExpand(){
+    const { hasBoxscore, isEnabled } = this.state;
+    if (hasBoxscore && isEnabled) {
+      return true
+    }
+    return false;
+  }
+
   render() {
     const { score } = this.props;
-    const { boxscore, hasBoxscore, isLoading, isExpanded  } = this.state;
+    const { boxscore, hasBoxscore, isExpanded  } = this.state;
     return (
       <Container
         fontFamily="Georgia" 
@@ -63,7 +73,7 @@ class BoxScore extends Component {
           flexDirection="row-reverse"
         >
           <Container padding="0">
-            <button disabled={!hasBoxscore} type="button" onClick={this.expandBoxscore}> V </button>
+            <button disabled={!this.allowedToExpand()} type="button" onClick={this.expandBoxscore}> V </button>
           </Container>
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle

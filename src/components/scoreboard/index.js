@@ -10,7 +10,7 @@ const GridContainer = styled.div`
   grid-template-rows: ${props => props.gridTemplateRows || ''};
 `;
 
-const Scoreboard = ({scoresMatrix, date}) => {
+const Scoreboard = ({scoresMatrix, date, expandBoxscores}) => {
   const displayBoxScores = () => {
     const elements = [];
     scoresMatrix.map((scores, index1)  => {
@@ -21,6 +21,7 @@ const Scoreboard = ({scoresMatrix, date}) => {
               <BoxScore
                 score={score}
                 date={date}
+                expand={expandBoxscores && score.status !== 'Postponed'}
               />
             </div>
           ))}

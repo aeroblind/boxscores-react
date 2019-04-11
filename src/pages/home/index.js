@@ -23,7 +23,8 @@ class Home extends Component {
       scores: [],
       scoreMatrix: [],
       date: this.getDate(1),
-      deviceSize: ''
+      deviceSize: '',
+      expandBoxscores: false,
     }
   }
 
@@ -62,11 +63,12 @@ class Home extends Component {
     const { scores } = this.state;
     let localScores = []
     let mod = 1;
-    if (size === devices.smallDevices.name) {
-      
-    } else if (size === devices.mediumDevices.name) {
+    let shouldExpandBoxscores = false;
+    
+    if (size === devices.mediumDevices.name) {
       mod = 2
     } else if (size === devices.largeDevices.name || size === devices.extraLargeDevices.name) {
+      shouldExpandBoxscores = true;
       mod = 3
     }
 
@@ -81,6 +83,7 @@ class Home extends Component {
     this.setState({
       deviceSize: size,
       scoreMatrix: localScores,
+      expandBoxscores: shouldExpandBoxscores,
     })
   }
 
@@ -111,18 +114,15 @@ class Home extends Component {
 
 
   render() {
-    const { isLoading, scoreMatrix, date } = this.state;
+    const { isLoading, scoreMatrix, date, expandBoxscores } = this.state;
     return (
       <Container padding='0' margin="auto">
-        {/* <FlexBox
-          flexDirection="column"
-          alignItems="center">
-          { isLoading ?
-            <div>Loading...</div> : this.displayBoxScores() 
-          }
-        </FlexBox> */}
         {scoreMatrix.length > 0 && 
-          <Scoreboard scoresMatrix={scoreMatrix} date={date}></Scoreboard>
+          <Scoreboard
+            scoresMatrix={scoreMatrix}
+            date={date}
+            expandBoxscores={expandBoxscores}
+          />
         }
       </Container>
     )
