@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { withRouter } from "react-router";
 import Container from '../../components/styled/container';
 import moment from 'moment';
 import Scoreboard from '../../components/scoreboard';
@@ -13,7 +12,6 @@ class Home extends Component {
     this.getGameScores = this.getGameScores.bind(this);
     this.isLoading = this.isLoading.bind(this);
     this.deviceDidChangeSize = this.deviceDidChangeSize.bind(this);
-  
     this.state = {
       isLoading: false,
       scores: [],
@@ -26,6 +24,7 @@ class Home extends Component {
 
   shouldComponentUpdate(nextProps, _) {
     const { deviceSize } = this.props;
+    console.log(this.props);
     if (nextProps.deviceSize !== deviceSize) {
       this.deviceDidChangeSize(nextProps.deviceSize);
     }
@@ -106,4 +105,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+export default Home;

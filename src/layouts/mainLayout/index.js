@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router";
 import Header from '../../components/header';
 import Container from '../../components/styled/container';
 import devices from '../../util/devices';
@@ -11,7 +10,7 @@ class MainLayout extends Component {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
     this.state = {
-      deviceSize: '',
+      deviceSize: ''
     }
   }
 
@@ -53,15 +52,16 @@ class MainLayout extends Component {
         deviceSize,
       })
     ));
+    console.log(deviceSize);
     return (
-      <Container padding="0" height="100%" overflow="auto">
+      <Container padding="0">
         <Header />
-          <Container>
-            {clonedChildren}
-          </Container>
+        <Container>
+          {clonedChildren}
+        </Container>
       </Container>
     )
   }
 }
 
-export default withRouter(MainLayout);
+export default MainLayout;

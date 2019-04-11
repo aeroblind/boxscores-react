@@ -13,4 +13,7 @@ export default styled.div`
   align-items: ${props => props.alignItems || 'stretch' };
   align-content: ${props => props.alignContent || 'stretch' };
   background-color: ${props => props.backgroundColor || '' };
+  font-size: ${props => props.fontSize || '' };
+  font-family: ${props => props.fontFamily || '' };
+  color: ${props => props.color || ''};
 `;

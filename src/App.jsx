@@ -10,16 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const target = document.getElementById('root');
   if (target) {
     ReactDOM.render(
-      <Router>
-        <MainLayout>
-            <Switch>
-              <Route exact path="/" component={Home}/>
-              <Route path="/standings" component={() => <div>Standings</div>}/>
-              <Route path="/stats" component={() => <div>Stats</div>}/>
-              <Route component={Home}/>
-            </Switch>
-        </MainLayout>
-      </Router>,
+      <MainLayout>
+        <Home />
+      </MainLayout>,
       target,
     );
   } else {
