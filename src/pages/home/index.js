@@ -15,48 +15,32 @@ class Home extends Component {
     this.getGameScores = this.getGameScores.bind(this);
     this.isLoading = this.isLoading.bind(this);
     this.deviceDidChangeSize = this.deviceDidChangeSize.bind(this);
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-
-
+  
     this.state = {
       isLoading: false,
       scores: [],
       scoreMatrix: [],
       date: this.getDate(1),
-      deviceSize: '',
+      deviceSize: props.deviceSize,
       expandBoxscores: false,
     }
   }
 
+  shouldComponentUpdate(nextProps, _) {
+    const { deviceSize } = this.props;
+    if (nextProps.deviceSize !== deviceSize) {
+      this.deviceDidChangeSize(nextProps.deviceSize);
+    }
+    return true;
+  }
+
   async componentDidMount(){
     await this.getGameScores(this.state.date);
-    window.addEventListener('resize', this.updateWindowDimensions);
-    this.updateWindowDimensions();
+    this.deviceDidChangeSize(this.props.deviceSize);
   }
 
   componentWillMount(){
     window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-
-  updateWindowDimensions() {
-    const { deviceSize } = this.state;
-    let didChangeSize = false;
-    let localDeviceSize = '';
-    if (this.state.scores.length > 0) {
-      if (window.innerWidth <= devices.smallDevices.minWidth && deviceSize !== devices.smallDevices.name)  {
-        didChangeSize = true;
-        localDeviceSize = devices.smallDevices.name
-      } else if (window.innerWidth > devices.smallDevices.minWidth && window.innerWidth <= devices.mediumDevices.minWidth && deviceSize !== devices.mediumDevices.name ) {
-        didChangeSize = true;
-        localDeviceSize = devices.mediumDevices.name
-      } else if (window.innerWidth > devices.mediumDevices.minWidth && deviceSize !== devices.largeDevices.name) {
-        didChangeSize = true;
-        localDeviceSize = devices.largeDevices.name
-      }
-      if (didChangeSize) {
-        this.deviceDidChangeSize(localDeviceSize);
-      }
-    }
   }
 
   deviceDidChangeSize(size) {
@@ -64,10 +48,10 @@ class Home extends Component {
     let localScores = []
     let mod = 1;
     let shouldExpandBoxscores = false;
-    
+
     if (size === devices.mediumDevices.name) {
       mod = 2
-    } else if (size === devices.largeDevices.name || size === devices.extraLargeDevices.name) {
+    } else if (size === devices.largeDevices.name) {
       shouldExpandBoxscores = true;
       mod = 3
     }
@@ -81,7 +65,6 @@ class Home extends Component {
     })
 
     this.setState({
-      deviceSize: size,
       scoreMatrix: localScores,
       expandBoxscores: shouldExpandBoxscores,
     })

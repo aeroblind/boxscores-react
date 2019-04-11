@@ -65,14 +65,16 @@ class BoxScore extends Component {
     })
   }
 
+  
+
   render() {
     const { score } = this.props;
-    const { boxscore, hasBoxscore, isExpanded  } = this.state;
+    const { boxscore, hasBoxscore, isExpanded, isEnabled  } = this.state;
     return (
       <Container
         fontFamily="Georgia" 
         fontSize='10px'
-        color={hasBoxscore ? theme.colors.dark : theme.colors.medium}
+        color={ (hasBoxscore && isEnabled) ? theme.colors.dark : theme.colors.medium }
         backgroundColor="white"
         margin="8px"
         borderRadius="5px"
