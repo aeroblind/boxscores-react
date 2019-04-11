@@ -72,7 +72,7 @@ class BoxScore extends Component {
       <Container
         fontFamily="Georgia" 
         fontSize='10px'
-        color={theme.colors.medium}
+        color={theme.colors.dark}
         backgroundColor="white"
         margin="8px"
         borderRadius="5px"
