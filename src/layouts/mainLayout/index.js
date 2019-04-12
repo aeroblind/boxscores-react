@@ -52,7 +52,7 @@ class MainLayout extends Component {
     return (
       <Container padding="0">
         <Header history={history} />
-        <Container>
+        <Container margin="40px 0 0 0">
           {children}
         </Container>
       </Container>

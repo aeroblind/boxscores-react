@@ -6,13 +6,16 @@ import theme from '../../style/theme';
 
 
 const NavBar = styled.div`
+  position: fixed;
+  top: 0;
   width: 100%;
-  padding: 15px 0 5px 0;
+  padding: 5px 0 5px 0;
   margin: 0 0 8px 0;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
   font-family: Georgia;
   font-size: 20px;
-  background-color: white;
+  background-color: ${theme.colors.dark};
+  color: white;
 `;
 
 const JbsLink = styled.a`
@@ -20,12 +23,12 @@ const JbsLink = styled.a`
 `
 const linkStyle = {
   textDecoration: 'none',
-  color: theme.colors.medium,
+  color: theme.colors.light,
 };
 
 const activelinkStyle = {
   textDecoration: 'none',
-  color: theme.colors.dark,
+  color: 'white',
   fontWeight: 700,
 };
 
@@ -39,8 +42,8 @@ class Header extends Component {
       links: [
         {
           id: 0,
-          path: '/',
           displayName: 'Scores',
+          path: '/',
         },
         {
           id: 1,
@@ -68,16 +71,13 @@ class Header extends Component {
     console.log(`activeLinkIndex ${activeLinkIndex}`)
     return (
       <NavBar>
-        <FlexBox alignItems="center" justifyContent="center" alignItems="center">
-          <span><b>JUST BOX SCORES</b></span>
-        </FlexBox>
         <FlexBox
           fontSize="14px"
-          padding="3px 0 3px 0"
+          padding="3px 10px 3px 10px"
           justifyContent="center"
-          margin="5px 0 0 0"
-          color={theme.colors.medium}
+          alignItems="center"
         >
+          <span style={{fontSize: '18px'}}><b>JBS</b></span>
           {links.map(link => {
             return (
             <div key={link.id} style={{flexGrow: 1, textAlign: 'center'}}>
