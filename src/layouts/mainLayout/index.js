@@ -50,7 +50,7 @@ class MainLayout extends Component {
     const { children, history } = this.props;
     const { deviceSize } = this.state;
     return (
-      <Container padding="0">
+      <Container padding="0" fontFamily="Georgia">
         <Header history={history} />
         <Container margin="40px 0 0 0">
           {children}
