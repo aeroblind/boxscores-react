@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import Header from '../../components/header';
 import Container from '../../components/styled/container';
 import devices from '../../util/devices';
+import * as appActions from '../../_actions/appActions';
 
 class MainLayout extends Component {
   constructor(props) {
@@ -24,6 +27,7 @@ class MainLayout extends Component {
   }
   
   updateWindowDimensions() {
+    const { deviceDidChangeSize } = this.props;
     const { deviceSize } = this.state;
     let didChangeSize = false;
     let localDeviceSize = '';
@@ -38,30 +42,34 @@ class MainLayout extends Component {
       localDeviceSize = devices.largeDevices.name
     }
     if (didChangeSize) {
-      this.setState({
-        deviceSize: localDeviceSize,
-      })
+      deviceDidChangeSize(localDeviceSize);
     }
   }
 
   render() {
-    const { children } = this.props;
+    const { children, history } = this.props;
     const { deviceSize } = this.state;
-    const clonedChildren = React.Children.map(children, child => (
-      React.cloneElement(child, {
-        deviceSize,
-      })
-    ));
-    console.log(deviceSize);
     return (
       <Container padding="0">
-        <Header />
+        <Header history={history} />
         <Container>
-          {clonedChildren}
+          {children}
         </Container>
       </Container>
     )
   }
 }
 
-export default MainLayout;
+function mapStateToProps(state, ownProps) {
+  return {
+    deviceSize: state.app.deviceSize,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    deviceDidChangeSize: (deviceSize) => dispatch(appActions.deviceDidChangeSize(deviceSize)),
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainLayout));

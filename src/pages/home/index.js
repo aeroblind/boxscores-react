@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
 import Container from '../../components/styled/container';
 import moment from 'moment';
 import Scoreboard from '../../components/scoreboard';
@@ -24,7 +26,6 @@ class Home extends Component {
 
   shouldComponentUpdate(nextProps, _) {
     const { deviceSize } = this.props;
-    console.log(this.props);
     if (nextProps.deviceSize !== deviceSize) {
       this.deviceDidChangeSize(nextProps.deviceSize);
     }
@@ -105,4 +106,16 @@ class Home extends Component {
   }
 }
 
-export default Home;
+function mapStateToProps(state, ownProps) {
+  return {
+    deviceSize: state.app.deviceSize,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    // getBlindById: (id) => dispatch(blindActions.getBlindById(id)),
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

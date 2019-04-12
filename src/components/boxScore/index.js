@@ -64,9 +64,7 @@ class BoxScore extends Component {
       isExpanded: !this.state.isExpanded,
     })
   }
-
   
-
   render() {
     const { score } = this.props;
     const { boxscore, hasBoxscore, isExpanded, isEnabled  } = this.state;

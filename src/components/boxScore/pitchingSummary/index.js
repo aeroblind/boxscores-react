@@ -54,7 +54,7 @@ const PitchingSummary = ({ pitching, away_sname, home_sname }) => {
         {pitchers.map(pitcher => (
           <tr key={pitcher.id}>
             <td style={{textAlign: "left"}}>{`${pitcher.name} ${getPitcherNote(pitcher)}`}</td>
-            <td style={{textAlign: "right"}}>{getInningsPitched(pitcher.out)}</td>
+            <td style={{textAlign: "right"}}>{getInningsPitched(parseInt(pitcher.out))}</td>
             <td style={{textAlign: "right"}}>{pitcher.h}</td>
             <td style={{textAlign: "right"}}>{pitcher.er}</td>
             <td style={{textAlign: "right"}}>{pitcher.bb}</td>

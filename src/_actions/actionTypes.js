@@ -1,0 +1,5 @@
+
+export const DEVICE_DID_CHANGE_SIZE = 'DEVICE_DID_CHANGE_SIZE';
+
+export const UPDATE_DATE = 'UPDATE_DATE';
+

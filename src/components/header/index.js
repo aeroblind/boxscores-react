@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import FlexBox from '../styled/flexbox';
 import theme from '../../style/theme';
@@ -14,20 +15,87 @@ const NavBar = styled.div`
   background-color: white;
 `;
 
+const JbsLink = styled.a`
+  text-decoration: 'inherit';
+`
+const linkStyle = {
+  textDecoration: 'none',
+  color: theme.colors.medium,
+};
 
-const Header = ({children}) => {
-  return (
-    <NavBar>
-      <FlexBox alignItems="center" justifyContent="center" alignItems="center">
-        <span><b>JUST BOX SCORES</b></span>
-      </FlexBox>
-      <FlexBox fontSize="14px" padding="3px 0 3px 0" justifyContent="center" margin="5px 0 0 0" color={theme.colors.medium}>
-        <div style={{flexGrow: 1, textAlign: "center"}}>Scores</div>
-        <div style={{flexGrow: 1, textAlign: "center"}}>Standings</div>
-        <div style={{flexGrow: 1, textAlign: "center"}}>Stats</div>
-      </FlexBox>
-    </NavBar>
-  )
+const activelinkStyle = {
+  textDecoration: 'none',
+  color: theme.colors.dark,
+  fontWeight: 700,
+};
+
+class Header extends Component {
+  constructor(props){
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+
+    this.state = {
+      links: [
+        {
+          id: 0,
+          path: '/',
+          displayName: 'Scores',
+        },
+        {
+          id: 1,
+          displayName: 'Standings',
+          path: '/standings',
+        },
+        {
+          id: 2,
+          displayName: 'Stats',
+          path: '/stats',
+        }
+      ],
+      activeLinkIndex: 0,
+    }
+  }
+
+  handleClick(e){
+    e.preventDefault();
+    this.setState({
+      activeLinkIndex: parseInt(e.target.id)
+    })
+  }
+  render() {
+    const { activeLinkIndex, links } = this.state;
+    console.log(`activeLinkIndex ${activeLinkIndex}`)
+    return (
+      <NavBar>
+        <FlexBox alignItems="center" justifyContent="center" alignItems="center">
+          <span><b>JUST BOX SCORES</b></span>
+        </FlexBox>
+        <FlexBox
+          fontSize="14px"
+          padding="3px 0 3px 0"
+          justifyContent="center"
+          margin="5px 0 0 0"
+          color={theme.colors.medium}
+        >
+          {links.map(link => {
+            return (
+            <div key={link.id} style={{flexGrow: 1, textAlign: 'center'}}>
+              <Link
+                id={link.id}
+                style={(activeLinkIndex === link.id) ? activelinkStyle : linkStyle}
+                to={link.path}
+                onClick={this.handleClick}
+              >{link.displayName}</Link>
+            </div>
+          )})
+          }
+        </FlexBox>
+      </NavBar>
+    );
+  }
 }
+    
+
 
 export default Header;
