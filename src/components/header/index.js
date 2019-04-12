@@ -9,8 +9,7 @@ const NavBar = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 5px 0 5px 0;
-  margin: 0 0 8px 0;
+  height: 40px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, .25);
   font-family: Georgia;
   font-size: 20px;
@@ -69,27 +68,38 @@ class Header extends Component {
   render() {
     const { activeLinkIndex, links } = this.state;
     console.log(`activeLinkIndex ${activeLinkIndex}`)
+
+    const gridStyle = {
+      flexGrow: 1,
+      alignItems: "center",
+    };
+
     return (
       <NavBar>
         <FlexBox
           fontSize="14px"
-          padding="3px 10px 3px 10px"
+          padding="0 10px 0 10px"
           justifyContent="center"
           alignItems="center"
         >
-          <span style={{fontSize: '18px'}}><b>JBS</b></span>
-          {links.map(link => {
-            return (
-            <div key={link.id} style={{flexGrow: 1, textAlign: 'center'}}>
-              <Link
-                id={link.id}
-                style={(activeLinkIndex === link.id) ? activelinkStyle : linkStyle}
-                to={link.path}
-                onClick={this.handleClick}
-              >{link.displayName}</Link>
-            </div>
-          )})
-          }
+          <div style={{fontSize: '18px', margin: '0 10px 0 0'}}>
+            <span ><b>JBS</b></span>
+          </div>
+          <FlexBox style={gridStyle} overflow="scroll"> 
+            {links.map(link => {
+              return (
+                <div key={link.id} style={{textAlign: 'center', minWidth: '100px' }}>
+                  <Link
+                    id={link.id}
+                    style={(activeLinkIndex === link.id) ? activelinkStyle : linkStyle}
+                    to={link.path}
+                    onClick={this.handleClick}
+                  >{link.displayName}</Link>
+                </div>
+              )})
+            }
+          </FlexBox>
+          
         </FlexBox>
       </NavBar>
     );
