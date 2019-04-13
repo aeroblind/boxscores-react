@@ -13,7 +13,12 @@ export default {
       }
     },
     national: {
-      id: 104
+      id: 104,
+      divisions: {
+        203: 'NL Central',
+        204: 'NL East',
+        205: 'NL West',
+      }
     }
   }
 }

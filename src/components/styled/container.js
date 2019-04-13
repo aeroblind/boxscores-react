@@ -5,6 +5,7 @@ export default styled.div`
   margin: ${props => props.margin || '0'};
   height: ${props => props.height || ''};
   width: ${props => props.width || ''};
+  max-width: ${props => props.maxWidth || ''};
   minWidth: ${props => props.minWidth || ''};
   box-shadow: ${props => props.boxShadow ? '0 0 5px 1px rgba(0, 0, 0, .25)' : '0'};
   overflow: ${props => props.overflow || 'hidden'};

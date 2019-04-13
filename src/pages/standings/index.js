@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import * as mlbApi from '../../api/mlbApi';
 import * as mlbActions from '../../_actions/mlbActions'
 import mlb from '../../models/mlb';
+import LeagueStandings from '../../components/leagueStandings';
+import Container from '../../components/styled/container';
+import FlexBox from '../../components/styled/flexbox';
+import theme from '../../style/theme';
 
 class Standings extends Component {
   constructor(props){
@@ -14,47 +18,46 @@ class Standings extends Component {
     getStandings();
   }
   
+  formatLastTen({wins, losses}) {
+    return `${wins} - ${losses}`;
+  }
   render() {
     const { standings } = this.props;
-    const americanLeague = standings.filter(division => {
-      return (division.league.id === mlb.leagues.american.id)
-    })
     return (
       <div>
-        <div>American League</div>
-        {americanLeague.map(division => {
-          console.log(division);
-          const divisionName = mlb.leagues.american.divisions[division.division.id];
-          return(
-            <div key={division.division.id}>
-              <table>
-                <tbody>
-                <tr>
-                  <th textAlign={"left"} width='auto'>{divisionName}</th>
-                  <th>W</th>
-                  <th>L</th>
-                  <th>PCT</th>
-                  <th>GB</th>
-                  <th>L10</th>
-                  <th>STRK</th>
-                </tr>
-                {division.teamRecords.map(teamRecord => (
-                  <tr key={teamRecord.team.id}>
-                    <td style={{textAlign: "left"}}>{teamRecord.team.name}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.wins}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.losses}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.winningPercentage}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.gamesBack}</td>
-                    <td style={{textAlign: "right"}}>{"fix"}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.so}</td>
-                    <td style={{textAlign: "right"}}>{teamRecord.streak.streakCode}</td>
-                  </tr>
-                ))}
-                </tbody>
-              </table>
-            </div>
-          )
-        })}
+        <FlexBox
+          flexWrap="wrap">
+          <Container
+            backgroundColor="white"
+            margin="8px"
+            borderRadius="5px"
+            borderColor={theme.colors.medium}
+            borderWidth="1px"
+            borderStyle="solid"
+            flexGrow={1}
+          >
+            <LeagueStandings
+              title="American League"
+              league={standings.filter(div => (div.league.id === mlb.leagues.american.id))}
+              divisions={mlb.leagues.american.divisions}
+            />
+          </Container>
+          <Container
+            backgroundColor="white"
+            margin="8px"
+            borderRadius="5px"
+            borderColor={theme.colors.medium}
+            borderWidth="1px"
+            borderStyle="solid"
+            flexGrow={1}
+          >
+            <LeagueStandings
+              title="National League"
+              league={standings.filter(div => (div.league.id === mlb.leagues.national.id))}
+              divisions={mlb.leagues.national.divisions}
+            />
+          </Container>
+        </FlexBox>
       </div>
     )
   }
