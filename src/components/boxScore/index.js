@@ -14,35 +14,18 @@ import theme from '../../style/theme';
 class BoxScore extends Component {
   constructor(props) {
     super(props);
-    this.getBoxScore = this.getBoxScore.bind(this);
+
     this.expandBoxscore = this.expandBoxscore.bind(this);
     this.allowedToExpand = this.allowedToExpand.bind(this);
     this.didClickBoxscore = this.didClickBoxscore.bind(this);
 
-    this.state = {
-      boxscore: {},
-      isLoading: false,
-      hasBoxscore: false,
-      isExpanded: props.expand || false,
-      isEnabled: props.score.status === 'Final',
-    }
-  }
-
-  componentDidMount() {
-    const { score, date } = this.props;
-    this.getBoxScore(score.gameday_link, date);
-  }
-  
-  async getBoxScore(gamedayLink, date) {
-    this.setState({
-      isLoading: true,
-    })
-    const boxscore = await mlbApi.getBoxScoreOnDate(date, gamedayLink);
-    this.setState({
-      boxscore,
-      hasBoxscore: true,
-      isLoading: false,
-    });
+    // this.state = {
+    //   boxscore: {},
+    //   isLoading: false,
+    //   hasBoxscore: false,
+    //   isExpanded: props.expand || false,
+    //   isEnabled: props.score.status === 'Final',
+    // }
   }
 
   expandBoxscore(e){
@@ -66,13 +49,12 @@ class BoxScore extends Component {
   }
   
   render() {
-    const { score } = this.props;
-    const { boxscore, hasBoxscore, isExpanded, isEnabled  } = this.state;
+    const { boxscore } = this.props;
     return (
       <Container
         fontFamily="Georgia" 
         fontSize='10px'
-        color={ (hasBoxscore && isEnabled) ? theme.colors.dark : theme.colors.medium }
+        color={ theme.colors.dark }
         backgroundColor="white"
         margin="8px"
         borderRadius="5px"
@@ -86,19 +68,17 @@ class BoxScore extends Component {
           onClick={this.didClickBoxscore}
         >
           <Container padding="0">
-            {/* <button disabled={!this.allowedToExpand()} type="button" onClick={this.expandBoxscore}> V </button> */}
           </Container>
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle
-              away_team_name={ score.away_team_name }
-              home_team_name= { score.home_team_name }
-              away_team_runs= { score.away_team_runs }
-              home_team_runs= { score.home_team_runs }
+              away_team_name={ boxscore.awayTeamName }
+              home_team_name= { boxscore.homeTeamName }
+              away_team_runs= { boxscore.linescore.teams.away.runs }
+              home_team_runs= { boxscore.linescore.teams.home.runs }
             />
           </Container>
         </FlexBox>
-        {}
-        { isExpanded && hasBoxscore &&
+        {/* { isExpanded && hasBoxscore &&
           <Container padding="0" margin="5px 0 0 0">
             <LineScore 
             linescore={ boxscore.linescore }
@@ -121,7 +101,7 @@ class BoxScore extends Component {
               home_sname={ boxscore.home_sname }
             />
           </Container>
-        }
+          } */}
       </Container>
     )
   }

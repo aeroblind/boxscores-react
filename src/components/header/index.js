@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 import FlexBox from '../styled/flexbox';
 import Container from '../styled/container';
 import NavBar from '../styled/navBar';
@@ -22,7 +22,7 @@ const Header = (props) => {
           fontSize="18px"
           margin="0 10px 0 0"
         >
-          <span ><b>JBS</b></span>
+          <span><b>JBS</b></span>
         </Container>
         <FlexBox
           flexGrow={1}
@@ -38,10 +38,8 @@ const Header = (props) => {
                 minWidth="100px"
               >
                 <Link
-                  id={option.id}
-                  style={linkStyle}
-                  to={option.path}
-                >{option.displayName}</Link>
+                  href={option.path}
+                ><a style={linkStyle}>{option.displayName}</a></Link>
               </Container>
             )})
           }

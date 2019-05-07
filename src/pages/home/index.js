@@ -5,12 +5,14 @@ import Container from '../../components/styled/container';
 import moment from 'moment';
 import Scoreboard from '../../components/scoreboard';
 import * as mlbApi from '../../api/mlbApi';
+import * as mlbActions from '../../_actions/mlbActions';
 import devices from '../../util/devices';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-
+    
+    this.getBoxscoresByDate = this.getBoxscoresByDate.bind(this);
     this.getGameScores = this.getGameScores.bind(this);
     this.isLoading = this.isLoading.bind(this);
     this.deviceDidChangeSize = this.deviceDidChangeSize.bind(this);
@@ -33,10 +35,15 @@ class Home extends Component {
   }
 
   async componentDidMount(){
-    await this.getGameScores(this.state.date);
+    //  this.getBoxscoresByDate();
+    //  await this.getGameScores(this.state.date);
     this.deviceDidChangeSize(this.props.deviceSize);
   }
 
+  getBoxscoresByDate(){
+    const { getBoxscoresByDate } = this.props;
+    getBoxscoresByDate('05/07/2019');
+  }
   deviceDidChangeSize(size) {
     const { scores } = this.state;
     let localScores = []
@@ -92,13 +99,12 @@ class Home extends Component {
 
   render() {
     const { isLoading, scoreMatrix, date, expandBoxscores } = this.state;
+    const { boxscores } = this.props;
     return (
       <Container padding='0' margin="auto">
-        {scoreMatrix.length > 0 && 
+        {boxscores.length > 0 && 
           <Scoreboard
-            scoresMatrix={scoreMatrix}
-            date={date}
-            expandBoxscores={expandBoxscores}
+            boxscores={boxscores}
           />
         }
       </Container>
@@ -106,16 +112,16 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-    deviceSize: state.app.deviceSize,
-  };
-}
+// function mapStateToProps(state, ownProps) {
+//   return {
+//     deviceSize: state.app.deviceSize,
+//   };
+// }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // getBlindById: (id) => dispatch(blindActions.getBlindById(id)),
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     getBoxscoresByDate: (date) => dispatch(mlbActions.getBoxscoresByDate(date)),
+//   };
+// }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default Home;//withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
