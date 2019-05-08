@@ -26,7 +26,6 @@ const Header = (props) => {
         </Container>
         <FlexBox
           flexGrow={1}
-          overflow="scroll"
           alignItems="center"
         > 
           {navBarOptions.map(option => {
