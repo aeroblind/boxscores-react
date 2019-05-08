@@ -21,13 +21,13 @@ const BattingSummary = ({
   fieldingAndBattingInfo,
 }) => {
   
-  console.log(fieldingAndBattingInfo);
-
-  const battingInfo = Object.keys(fieldingAndBattingInfo[0]).length > 0 ? fieldingAndBattingInfo[0].fieldList : {};
-  const baserunningInfo = {}//Object.keys(fieldingAndBattingInfo[1]).length > 0 ? fieldingAndBattingInfo[1].fieldList : {};
-  const fieldingInfo = {}// Object.keys(fieldingAndBattingInfo[2]).length > 0 ? fieldingAndBattingInfo[2].fieldList : {};
-
-  console.log(fieldingInfo);
+  const getFieldList = (info) => {
+    try {
+      return info.fieldList;
+    } catch (err) {
+      return []
+    }
+  }
 
   const listTeamBatting = (name, batters) => {
     return(
@@ -61,7 +61,10 @@ const BattingSummary = ({
   };
 
   const listBattingTextData = () => {
-    return helper.createDisplayElements([(fieldingInfo || {}), (battingInfo || {}), (baserunningInfo || {})])
+    const battingFieldList = getFieldList(fieldingAndBattingInfo[0]);
+    const baserunningFieldList = getFieldList(fieldingAndBattingInfo[1]);
+    const fieldingFieldList = getFieldList(fieldingAndBattingInfo[2]);
+    return helper.createDisplayElements([fieldingFieldList, battingFieldList, baserunningFieldList]);
   }
 
   return (

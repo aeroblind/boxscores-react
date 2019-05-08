@@ -89,12 +89,13 @@ class Boxscore extends Component {
               home_sname={ score.homeShortName }
               fieldingAndBattingInfo={ score.fieldingAndBattingInfo }
             />
-            {/* 
             <PitchingSummary
-              pitching={ boxscore.pitching } 
-              away_sname={ boxscore.away_sname }
-              home_sname={ boxscore.home_sname }
+              awayPitchers={ score.awayPitchers } 
+              homePitchers={ score.homePitchers } 
+              away_sname={ score.awayShortName }
+              home_sname={ score.homeShortName }
             />
+            {/*
             <GameInfo
               gameInfo={ boxscore.game_info } 
               away_sname={ boxscore.away_sname }
