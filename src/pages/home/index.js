@@ -11,100 +11,46 @@ import devices from '../../util/devices';
 class Home extends Component {
   constructor(props) {
     super(props);
-    
-    this.getBoxscoresByDate = this.getBoxscoresByDate.bind(this);
-    this.getGameScores = this.getGameScores.bind(this);
-    this.isLoading = this.isLoading.bind(this);
-    this.deviceDidChangeSize = this.deviceDidChangeSize.bind(this);
+    const { boxscores, isMobile } = props;
     this.state = {
-      isLoading: false,
-      scores: [],
-      scoreMatrix: [],
-      date: this.getDate(1),
-      deviceSize: props.deviceSize,
-      expandBoxscores: false,
+      scoresMatrix: this.getScoresMatrix(boxscores, isMobile)
     }
   }
 
-  shouldComponentUpdate(nextProps, _) {
-    const { deviceSize } = this.props;
-    if (nextProps.deviceSize !== deviceSize) {
-      this.deviceDidChangeSize(nextProps.deviceSize);
-    }
-    return true;
-  }
+  getScoresMatrix(scores, isMobile) {
+    let scoresMatrix = []
+    let mod = 1;
 
-  async componentDidMount(){
-    //  this.getBoxscoresByDate();
-    //  await this.getGameScores(this.state.date);
-    this.deviceDidChangeSize(this.props.deviceSize);
+    if (!isMobile) {
+      mod = 3
+    }
+      
+    for (var i=0; i<= mod-1; i++) {
+      scoresMatrix.push([]);
+    };
+
+    scores.map((score, index) => {
+      scoresMatrix[index % mod].push(score);
+    })
+
+    return scoresMatrix;
   }
 
   getBoxscoresByDate(){
     const { getBoxscoresByDate } = this.props;
     getBoxscoresByDate('05/07/2019');
   }
-  deviceDidChangeSize(size) {
-    const { scores } = this.state;
-    let localScores = []
-    let mod = 1;
-    let shouldExpandBoxscores = false;
-
-    if (size === devices.mediumDevices.name) {
-      mod = 2
-    } else if (size === devices.largeDevices.name) {
-      shouldExpandBoxscores = true;
-      mod = 3
-    }
-
-    for (var i=0; i<= mod-1; i++) {
-      localScores.push([]);
-    };
-
-    scores.map((score, index) => {
-      localScores[index % mod].push(score);
-    })
-
-    this.setState({
-      scoreMatrix: localScores,
-      expandBoxscores: shouldExpandBoxscores,
-    })
-  }
-
-  getDate(daysFromToday) {
-    const yesterday = moment().subtract(daysFromToday.toString(), 'day');
-    return {
-      year: yesterday.format('YYYY'),
-      month: yesterday.format('MM'),
-      day: yesterday.format('DD'),
-    }
-  }
-
-  isLoading(state) {
-    this.setState({
-      isLoading: state
-    })
-  }
-
-  async getGameScores(date) {
-    const scores = await mlbApi.getMiniScoreboardOnDate(date);
-    this.setState({
-      scores,
-      isLoading: false,
-      date: date,
-    });
-  }
-
 
 
   render() {
-    const { isLoading, scoreMatrix, date, expandBoxscores } = this.state;
+    const { scoresMatrix } = this.state;
     const { boxscores } = this.props;
     return (
       <Container padding='0' margin="auto">
         {boxscores.length > 0 && 
           <Scoreboard
-            boxscores={boxscores}
+            scoresMatrix={scoresMatrix}
+            expandBoxscores={!this.props.isMobile}
           />
         }
       </Container>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import FlexBox from '../styled/flexbox';
 import Container from '../styled/container';
-import Boxscore from '../boxscore';
+import BoxScore from '../boxScore';
 
 const GridContainer = styled.div`
   display: grid;
@@ -10,17 +10,20 @@ const GridContainer = styled.div`
   grid-template-rows: ${props => props.gridTemplateRows || ''};
 `;
 
-const Scoreboard = ({boxscores}) => {
-  const displayBoxscores = () => {
+const Scoreboard = ({scoresMatrix, expandBoxscores}) => {
+  const displayBoxScores = () => {
     const elements = [];
-    boxscores.map((boxscore, index1)  => {
+    scoresMatrix.map((scores, index1)  => {
       elements.push(
         <Container key={index1} padding='0'>
-          <div style={{width: '100%'}}>
-            <Boxscore
-              boxscore={boxscore}
-            />
-          </div>
+          {scores.map((score, index2) => (
+            <div key={index2} style={{width: '100%'}}>
+              <BoxScore
+                score={score}
+                expand={expandBoxscores && score.status !== 'Postponed'}
+              />
+            </div>
+          ))}
         </Container>
       )
     })
@@ -29,8 +32,8 @@ const Scoreboard = ({boxscores}) => {
 
   return (
     <Container padding='0'>
-      <GridContainer gridTemplateColumns={boxscores.length}>
-        {displayBoxscores()}
+      <GridContainer gridTemplateColumns={scoresMatrix.length}>
+        {displayBoxScores()}
       </GridContainer>
     </Container>
   )

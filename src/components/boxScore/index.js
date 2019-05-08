@@ -49,7 +49,7 @@ class BoxScore extends Component {
   }
   
   render() {
-    const { boxscore } = this.props;
+    const { score } = this.props;
     return (
       <Container
         fontFamily="Georgia" 
@@ -71,10 +71,10 @@ class BoxScore extends Component {
           </Container>
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle
-              away_team_name={ boxscore.awayTeamName }
-              home_team_name= { boxscore.homeTeamName }
-              away_team_runs= { boxscore.linescore.teams.away.runs }
-              home_team_runs= { boxscore.linescore.teams.home.runs }
+              away_team_name={ score.awayTeamName }
+              home_team_name= { score.homeTeamName }
+              away_team_runs= { score.linescore.teams.away.runs }
+              home_team_runs= { score.linescore.teams.home.runs }
             />
           </Container>
         </FlexBox>

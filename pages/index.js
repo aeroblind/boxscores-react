@@ -7,11 +7,10 @@ import moment from 'moment';
 
 class Home extends Component {
   static async getInitialProps({ req, query }) {
-    console.log(req.headers);
-    console.log(util.isMobile(req.headers['user-agent']));
+    const isMobile = util.isMobile(req.headers['user-agent']);
     const date = query.date || Home.getDate();
     const boxscores = await dugoutApi.getBoxscoresByDate(date);
-    return { boxscores };
+    return { boxscores, isMobile };
   }
 
   static getDate(){
@@ -19,10 +18,13 @@ class Home extends Component {
   }
 
   render() {
-    const { boxscores } = this.props;
+    const { boxscores, isMobile } = this.props;
     return (
       <MainLayout>
-        <HomeView boxscores={ boxscores } />
+        <HomeView
+          boxscores={ boxscores }
+          isMobile={ isMobile }
+        />
       </MainLayout>
     )
   }
