@@ -59,18 +59,11 @@ export function parseTextDataFromList(sections, sectionNames, allowedCategories)
 export function createDisplayElements(orderedTextDataSections) {
   const elements = [];
   orderedTextDataSections.map(section => {
-    if (Object.keys(section).length > 0) {
-      Object.keys(section).map(key => {
-        elements.push(<span key={key}><b>{key}: </b>{section[key].map((value, index) => {
-          if (section[key].length === 1 && index === 0) {
-            return <span key={index}>{value} </span>
-          } else if ((section[key].length >= 0 && index === 0) || (index >= 0 && index < section[key].length - 1)) {
-            return <span key={index}>{value}, </span>
-          } else {
-            return <span key={index}>{value}</span>
-          }
-        })} </span>)
-      })
+    console.log(section);
+    if (section.length > 0) {
+      section.map((field, index) => {
+        elements.push(<span key={index}><b>{field.label}: </b>{field.value}</span>)
+      });
     }
   });
   return elements;

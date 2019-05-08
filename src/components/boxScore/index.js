@@ -48,6 +48,7 @@ class Boxscore extends Component {
   render() {
     const { score } = this.props;
     const { isExpanded } = this.state;
+    //console.log(score);
     return (
       <Container
         fontFamily="Georgia" 
@@ -77,15 +78,18 @@ class Boxscore extends Component {
         { isExpanded &&
           <Container padding="0" margin="5px 0 0 0">
             <LineScore 
-            linescore={ score.linescore }
-            home_sname={ score.homeShortName }
-            away_sname={ score.awayShortName }
+              linescore={ score.linescore }
+              home_sname={ score.homeShortName }
+              away_sname={ score.awayShortName }
             />
-            {/* <BattingSummary
-            batting={ boxscore.batting } 
-            away_sname={ boxscore.away_sname }
-            home_sname={ boxscore.home_sname }
+            <BattingSummary
+              awayBatters = { score.awayBatters }
+              homeBatters = { score.awayBatters }
+              away_sname={ score.awayShortName }
+              home_sname={ score.homeShortName }
+              fieldingAndBattingInfo={ score.fieldingAndBattingInfo }
             />
+            {/* 
             <PitchingSummary
               pitching={ boxscore.pitching } 
               away_sname={ boxscore.away_sname }
