@@ -48,7 +48,7 @@ class Boxscore extends Component {
   render() {
     const { score } = this.props;
     const { isExpanded } = this.state;
-    //console.log(score);
+    //console.log(score.pitchingAndGameInfo);
     return (
       <Container
         fontFamily="Georgia" 
@@ -95,12 +95,10 @@ class Boxscore extends Component {
               away_sname={ score.awayShortName }
               home_sname={ score.homeShortName }
             />
-            {/*
+            
             <GameInfo
-              gameInfo={ boxscore.game_info } 
-              away_sname={ boxscore.away_sname }
-              home_sname={ boxscore.home_sname }
-            /> */}
+              gameInfo={ score.pitchingAndGameInfo }
+            />
           </Container>
           }
       </Container>
