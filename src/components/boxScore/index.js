@@ -11,7 +11,7 @@ import GameInfo from './gameInfo';
 import theme from '../../style/theme';
 
 
-class BoxScore extends Component {
+class Boxscore extends Component {
   constructor(props) {
     super(props);
 
@@ -19,13 +19,10 @@ class BoxScore extends Component {
     this.allowedToExpand = this.allowedToExpand.bind(this);
     this.didClickBoxscore = this.didClickBoxscore.bind(this);
 
-    // this.state = {
-    //   boxscore: {},
-    //   isLoading: false,
-    //   hasBoxscore: false,
-    //   isExpanded: props.expand || false,
-    //   isEnabled: props.score.status === 'Final',
-    // }
+    this.state = {
+      isExpanded: props.expand || false,
+      isEnabled: props.score.status === 'Final',
+    }
   }
 
   expandBoxscore(e){
@@ -50,6 +47,7 @@ class BoxScore extends Component {
   
   render() {
     const { score } = this.props;
+    const { isExpanded } = this.state;
     return (
       <Container
         fontFamily="Georgia" 
@@ -67,8 +65,6 @@ class BoxScore extends Component {
           flexDirection="row-reverse"
           onClick={this.didClickBoxscore}
         >
-          <Container padding="0">
-          </Container>
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle
               away_team_name={ score.awayTeamName }
@@ -78,14 +74,14 @@ class BoxScore extends Component {
             />
           </Container>
         </FlexBox>
-        {/* { isExpanded && hasBoxscore &&
+        { isExpanded &&
           <Container padding="0" margin="5px 0 0 0">
             <LineScore 
-            linescore={ boxscore.linescore }
-            home_sname={ boxscore.home_sname }
-            away_sname={ boxscore.away_sname }
+            linescore={ score.linescore }
+            home_sname={ score.homeShortName }
+            away_sname={ score.awayShortName }
             />
-            <BattingSummary
+            {/* <BattingSummary
             batting={ boxscore.batting } 
             away_sname={ boxscore.away_sname }
             home_sname={ boxscore.home_sname }
@@ -99,12 +95,12 @@ class BoxScore extends Component {
               gameInfo={ boxscore.game_info } 
               away_sname={ boxscore.away_sname }
               home_sname={ boxscore.home_sname }
-            />
+            /> */}
           </Container>
-          } */}
+          }
       </Container>
     )
   }
 }
 
-export default BoxScore;
+export default Boxscore;
