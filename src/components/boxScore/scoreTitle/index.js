@@ -1,20 +1,23 @@
 import React from 'react';
 import abstractGameCodes from '../../../models/abstractGameCodes';
+import theme from '../../../style/theme';
 
 const ScoreTitle = ({awayTeamName, homeTeamName, awayTeamRuns, homeTeamRuns, gameStatus}) => {
  
   const getScoreTitle = () => {
-    var scoreTitle = '';
+    var element;
     if (gameStatus === abstractGameCodes.final || gameStatus === abstractGameCodes.live) {
+      var scoreTitle = '';
       if(awayTeamRuns > homeTeamRuns) {
-        scoreTitle = `${awayTeamName} ${awayTeamRuns}, ${homeTeamName} ${homeTeamRuns}`
+        scoreTitle = `${awayTeamName} ${awayTeamRuns}, ${homeTeamName} ${homeTeamRuns}`;
       } else {
-        scoreTitle = `${homeTeamName} ${homeTeamRuns}, ${awayTeamName} ${awayTeamRuns}`
+        scoreTitle = `${homeTeamName} ${homeTeamRuns}, ${awayTeamName} ${awayTeamRuns}`;
       }
+      element = <span><b>{scoreTitle}</b></span>;
     } else {
-      scoreTitle = `${awayTeamName} vs ${homeTeamName}`
+      element = <span><b>{awayTeamName}</b><span style={{color: theme.colors.medium}}> @ </span><b>{homeTeamName}</b></span>;
     }
-    return <span><b>{scoreTitle}</b></span>
+    return element;
   };
 
   return (

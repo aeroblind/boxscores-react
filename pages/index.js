@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import config from '../config';
 import MainLayout from '../src/layouts/mainLayout';
 import HomeView from '../src/pages/home';
 import * as dugoutApi from '../src/api/dugoutApi';
 import * as util from '../src/util';
-import moment from 'moment';
 
 class Home extends Component {
   static async getInitialProps({ req, query }) {
@@ -14,7 +15,7 @@ class Home extends Component {
   }
 
   static getDate(){
-    return moment().utcOffset(-5).format('L');
+    return moment().utcOffset(config.utcOffset).format('L');
   }
 
   render() {
@@ -22,7 +23,7 @@ class Home extends Component {
     return (
       <MainLayout>
         <HomeView
-          boxscores={ boxscores }
+          boxscores={ boxscores || [] }
           isMobile={ isMobile }
         />
       </MainLayout>
