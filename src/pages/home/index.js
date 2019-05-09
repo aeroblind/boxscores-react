@@ -1,23 +1,16 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from "react-router-dom";
 import Container from '../../components/styled/container';
-import moment from 'moment';
 import Scoreboard from '../../components/scoreboard';
-import * as mlbApi from '../../api/mlbApi';
-import * as mlbActions from '../../_actions/mlbActions';
-import devices from '../../util/devices';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    const { boxscores, isMobile } = props;
     this.state = {
-      scoresMatrix: this.getScoresMatrix(boxscores, isMobile)
+      scoresMatrix: this.getScoresMatrix(props.boxscores, props.isMobile)
     }
   }
 
-  getScoresMatrix(scores, isMobile) {
+  getScoresMatrix(scores = [], isMobile) {
     let scoresMatrix = []
     let mod = 1;
 

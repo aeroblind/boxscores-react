@@ -3,11 +3,10 @@ import ScoreTitle from './scoreTitle';
 import LineScore from './lineScore';
 import Container from '../styled/container';
 import FlexBox from '../styled/flexbox';
-import * as mlbApi from '../../api/mlbApi';
-
 import BattingSummary from './battingSummary';
 import PitchingSummary from './pitchingSummary';
 import GameInfo from './gameInfo';
+import abstractGameCodes from '../../models/abstractGameCodes';
 import theme from '../../style/theme';
 
 
@@ -22,6 +21,7 @@ class Boxscore extends Component {
     this.state = {
       isExpanded: props.expand || false,
       isEnabled: props.score.status === 'Final',
+      allowedToExpand: this.allowedToExpand()
     }
   }
 
@@ -32,11 +32,9 @@ class Boxscore extends Component {
   }
 
   allowedToExpand(){
-    const { hasBoxscore, isEnabled } = this.state;
-    if (hasBoxscore && isEnabled) {
-      return true
-    }
-    return false;
+    const { score } = this.props;
+    const { abstractGameCode } = score.status;
+    return (abstractGameCode === abstractGameCodes.final || abstractGameCode === abstractGameCodes.live); 
   }
 
   didClickBoxscore(){
@@ -47,8 +45,7 @@ class Boxscore extends Component {
   
   render() {
     const { score } = this.props;
-    const { isExpanded } = this.state;
-    //console.log(score.pitchingAndGameInfo);
+    const { isExpanded, allowedToExpand } = this.state;
     return (
       <Container
         fontFamily="Georgia" 
@@ -68,14 +65,15 @@ class Boxscore extends Component {
         >
           <Container flexGrow={1} fontSize="14px" padding="0">
             <ScoreTitle
-              away_team_name={ score.awayTeamName }
-              home_team_name= { score.homeTeamName }
-              away_team_runs= { score.linescore.teams.away.runs }
-              home_team_runs= { score.linescore.teams.home.runs }
+              awayTeamName={ score.awayTeamName }
+              homeTeamName= { score.homeTeamName }
+              awayTeamRuns= { score.linescore.teams.away.runs }
+              homeTeamRuns= { score.linescore.teams.home.runs }
+              gameStatus={ score.status.abstractGameCode }
             />
           </Container>
         </FlexBox>
-        { isExpanded &&
+        { isExpanded && allowedToExpand &&
           <Container padding="0" margin="5px 0 0 0">
             <LineScore 
               linescore={ score.linescore }
@@ -84,7 +82,7 @@ class Boxscore extends Component {
             />
             <BattingSummary
               awayBatters = { score.awayBatters }
-              homeBatters = { score.awayBatters }
+              homeBatters = { score.homeBatters }
               away_sname={ score.awayShortName }
               home_sname={ score.homeShortName }
               fieldingAndBattingInfo={ score.fieldingAndBattingInfo }

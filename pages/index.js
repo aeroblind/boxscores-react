@@ -14,7 +14,7 @@ class Home extends Component {
   }
 
   static getDate(){
-    return moment().format('L');
+    return moment().utcOffset(-5).format('L');
   }
 
   render() {
