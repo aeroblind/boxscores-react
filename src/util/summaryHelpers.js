@@ -62,12 +62,13 @@ export function createDisplayElements(orderedTextDataSections) {
     if (section.length > 0) {
       section.map((field, index2) => {
         let element;
+        const key = `${index1}${index2}`;
         if (section.length === 1 && index1 === 0) {
-          element = <span key={index2}><b>{field.label}: </b>{field.value}</span>
+          element = <span key={key}><b>{field.label}: </b>{field.value}</span>
         } else if ((section.length >= 0 && index1 === 0) || (index1 >= 0 && index1 < section.length - 1)) {
-          element = <span key={index2}><b> {field.label}: </b>{field.value}</span>
+          element = <span key={key}><b> {field.label}: </b>{field.value}</span>
         } else {
-          element = <span key={index2}><b> {field.label}: </b>{field.value}</span>
+          element = <span key={key}><b> {field.label}: </b>{field.value}</span>
         }
         elements.push(element)
       });

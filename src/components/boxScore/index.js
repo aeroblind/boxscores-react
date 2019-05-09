@@ -63,7 +63,12 @@ class Boxscore extends Component {
           flexDirection="row-reverse"
           onClick={this.didClickBoxscore}
         >
-          <Container flexGrow={1} fontSize="14px" padding="0">
+          <FlexBox
+            flexGrow={1}
+            fontSize="14px"
+            padding="0"
+            alignItems="center"
+          >
             <ScoreTitle
               awayTeamName={ score.awayTeamName }
               homeTeamName= { score.homeTeamName }
@@ -71,7 +76,10 @@ class Boxscore extends Component {
               homeTeamRuns= { score.linescore.teams.home.runs }
               gameStatus={ score.status.abstractGameCode }
             />
-          </Container>
+            <FlexBox flexGrow={1} justifyContent="flex-end" alignItems="center">
+              <span style={{fontSize:"10px"}}>Bottom 9th</span>
+            </FlexBox>
+          </FlexBox>
         </FlexBox>
         { isExpanded && allowedToExpand &&
           <Container padding="0" margin="5px 0 0 0">

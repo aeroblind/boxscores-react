@@ -42,10 +42,10 @@ const PitchingSummary = ({ awayPitchers, homePitchers, away_sname, home_sname })
     return tag;
   }
 
-  const listTeamPitching = (name, pitchers) => {
+  const listTeamPitching = (name, pitchers, keyName) => {
     return(
-      <table style={tableStyle}>
-        <tbody>
+      <table style={tableStyle} key={keyName}>
+        <tbody key={keyName}>
         <tr>
           <PitchStatTH textAlign="left" width="auto">{name}</PitchStatTH>
           <PitchStatTH>IP</PitchStatTH>
@@ -56,8 +56,8 @@ const PitchingSummary = ({ awayPitchers, homePitchers, away_sname, home_sname })
           <PitchStatTH>NP</PitchStatTH>
           <PitchStatTH>ERA</PitchStatTH>
         </tr>
-        {pitchers.map(pitcher => (
-          <tr key={pitcher.id}>
+        {pitchers.map((pitcher, index) => (
+          <tr key={index}>
             <td style={{textAlign: "left"}}>{pitcher.name}</td>
             <td style={{textAlign: "right"}}>{getInningsPitched(pitcher.inningsPitched)}</td>
             <td style={{textAlign: "right"}}>{pitcher.hits}</td>
@@ -75,8 +75,8 @@ const PitchingSummary = ({ awayPitchers, homePitchers, away_sname, home_sname })
 
   return (
     <div>
-      {listTeamPitching(away_sname, awayPitchers)}
-      {listTeamPitching(home_sname, homePitchers)}
+      {listTeamPitching(away_sname, awayPitchers, 'awayPitchers')}
+      {listTeamPitching(home_sname, homePitchers, 'homePitchers')}
     </div>
   )
 }

@@ -29,10 +29,10 @@ const BattingSummary = ({
     }
   }
 
-  const listTeamBatting = (name, batters) => {
+  const listTeamBatting = (name, batters, keyName) => {
     return(
-      <table style={ tableStyle }>
-        <tbody>
+      <table style={ tableStyle } key={keyName}>
+        <tbody key={keyName}>
         <tr>
           <BatStatTH textAlign={"left"} width='auto'>{name}</BatStatTH>
           <BatStatTH>AB</BatStatTH>
@@ -69,8 +69,8 @@ const BattingSummary = ({
 
   return (
     <div>
-      {listTeamBatting(away_sname, awayBatters)}
-      {listTeamBatting(home_sname, homeBatters)}
+      {listTeamBatting(away_sname, awayBatters, 'awayBatters')}
+      {listTeamBatting(home_sname, homeBatters, 'homeBatters')}
       <div style={{margin: "2px 0 0 0"}}>
         { listBattingTextData() }
       </div>
