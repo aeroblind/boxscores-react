@@ -46,10 +46,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html style={ htmlStyle }>
-        <Head>
-          <title>Just Box Scores</title>
-          <meta name="Description" content="Baseball Box Scores Only!"></meta>
-        </Head>
+        <Head></Head>
         <body style={ bodyStyle }>
           <Main />
           <NextScript />

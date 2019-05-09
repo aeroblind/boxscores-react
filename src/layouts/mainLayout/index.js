@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Head from 'next/head';
 import Header from '../../components/header';
 import Container from '../../components/styled/container';
 
@@ -45,12 +46,18 @@ class MainLayout extends Component {
   render() {
     const { children } = this.props;
     return (
-      <Container padding="0" fontFamily="Georgia">
-        <Header/>
-        <Container margin="40px 0 0 0">
-          { children }
+      <div>
+        <Head>
+          <title>Just Box Scores</title>
+          <meta name="Description" content="Baseball Box Scores Only!"></meta>
+        </Head>
+        <Container padding="0" fontFamily="Georgia">
+          <Header/>
+          <Container margin="40px 0 0 0">
+            { children }
+          </Container>
         </Container>
-      </Container>
+      </div>
     )
   }
 }
