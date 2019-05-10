@@ -8,7 +8,7 @@ import * as util from '../src/util';
 
 class Home extends Component {
   static async getInitialProps({ req, query }) {
-    const isMobile = util.isMobile(req.headers['user-agent']);
+    const isMobile = util.isMobile(req);
     const date = query.date || Home.getDate();
     const boxscores = await dugoutApi.getBoxscoresByDate(date);
     return { boxscores, isMobile };
