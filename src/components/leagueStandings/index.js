@@ -5,7 +5,7 @@ import theme from '../../style/theme';
 
 const StandingsTH = styled.th`
   text-align: ${props => props.textAlign || 'right'};
-  width: ${props => props.width || ''};
+  width: ${props => props.width || '10%'};
   padding: ${props => props.padding || '0'};  
 `;
 
