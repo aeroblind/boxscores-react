@@ -1,8 +1,20 @@
 import React from 'react';
+import moment from 'moment';
 import abstractGameCodes from '../../../models/abstractGameCodes';
+import inningHalfTypes from '../../../models/inningHalfTypes';
 import theme from '../../../style/theme';
+import FlexBox from '../../styled/flexbox';
 
-const ScoreTitle = ({awayTeamName, homeTeamName, awayTeamRuns, homeTeamRuns, gameStatus}) => {
+const ScoreTitle = ({
+  awayTeamName,
+  homeTeamName,
+  awayTeamRuns,
+  homeTeamRuns,
+  gameStatus,
+  gameDate,
+  currentInningOrdinal,
+  inningHalf,
+}) => {
  
   const getScoreTitle = () => {
     var element;
@@ -20,8 +32,34 @@ const ScoreTitle = ({awayTeamName, homeTeamName, awayTeamRuns, homeTeamRuns, gam
     return element;
   };
 
+  const getGameStatus = () => {
+    let status = ''
+    if (gameStatus.abstractGameCode === abstractGameCodes.final) {
+      status = 'Final';
+    } else if (gameStatus.abstractGameCode === abstractGameCodes.live) {
+      let innHalf = ''
+      if (inningHalf === inningHalfTypes.bottom) {
+        innHalf = inningHalfTypes.bot;
+      } else {
+        innHalf = inningHalfTypes.top;
+      }
+      status = `${innHalf} ${currentInningOrdinal}`;
+    } else {
+      status = moment(gameDate).utcOffset(-5).format('h:mm a');
+    }
+    console.log(`status: ${gameDate}`);
+    return status;
+  }
+
   return (
-    <div>{getScoreTitle()}</div>
+    <FlexBox
+      alignItems="center"
+    >
+      <div>{getScoreTitle()}</div>
+      <FlexBox flexGrow={1} justifyContent="flex-end" alignItems="center">
+        <span style={{ fontSize:"10px", color: theme.colors.dark }}><b>{getGameStatus()}</b></span>
+      </FlexBox>
+    </FlexBox>
   )
 }
 
