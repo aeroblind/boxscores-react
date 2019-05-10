@@ -18,7 +18,7 @@ const ScoreTitle = ({
  
   const getScoreTitle = () => {
     var element;
-    if (gameStatus === abstractGameCodes.final || gameStatus === abstractGameCodes.live) {
+    if (gameStatus.abstractGameCode === abstractGameCodes.final || gameStatus.abstractGameCode === abstractGameCodes.live) {
       var scoreTitle = '';
       if(awayTeamRuns > homeTeamRuns) {
         scoreTitle = `${awayTeamName} ${awayTeamRuns}, ${homeTeamName} ${homeTeamRuns}`;
@@ -47,7 +47,6 @@ const ScoreTitle = ({
     } else {
       status = moment(gameDate).utcOffset(-5).format('h:mm a');
     }
-    console.log(`status: ${gameDate}`);
     return status;
   }
 
