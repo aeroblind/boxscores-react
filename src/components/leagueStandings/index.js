@@ -48,7 +48,7 @@ const LeagueStanding = ({title, league, divisions}) => {
                   <StandingsTH>PCT</StandingsTH>
                   <StandingsTH>GB</StandingsTH>
                   <StandingsTH>L10</StandingsTH>
-                  <StandingsTH>STRK</StandingsTH>
+                  <StandingsTH width='12%' >STRK</StandingsTH>
                 </tr>
                 {division.teamRecords.map(teamRecord => {
                   const lastTen = teamRecord.records.splitRecords.find(rec => rec.type === 'lastTen' );

@@ -34,6 +34,7 @@ const ScoreTitle = ({
 
   const getGameStatus = () => {
     let status = ''
+    let color = theme.colors.dark;
     if (gameStatus.abstractGameCode === abstractGameCodes.final) {
       status = 'Final';
     } else if (gameStatus.abstractGameCode === abstractGameCodes.live) {
@@ -45,9 +46,10 @@ const ScoreTitle = ({
       }
       status = `${innHalf} ${currentInningOrdinal}`;
     } else {
+      color = theme.colors.medium;
       status = moment(gameDate).utcOffset(-5).format('h:mm a');
     }
-    return status;
+    return <span style={{ fontSize:"10px", color: color }}><b>{status}</b></span>;
   }
 
   return (
@@ -56,7 +58,7 @@ const ScoreTitle = ({
     >
       <div>{getScoreTitle()}</div>
       <FlexBox flexGrow={1} justifyContent="flex-end" alignItems="center">
-        <span style={{ fontSize:"10px", color: theme.colors.dark }}><b>{getGameStatus()}</b></span>
+        {getGameStatus()}
       </FlexBox>
     </FlexBox>
   )

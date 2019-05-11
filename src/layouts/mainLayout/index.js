@@ -49,7 +49,7 @@ class MainLayout extends Component {
       <div>
         <Head>
           <title>Just Box Scores</title>
-          <meta name="Description" content="Baseball Box Scores Only!"></meta>
+          <meta name="Description" content="Just sports box scores. Fast!"></meta>
         </Head>
         <Container padding="0" fontFamily="Georgia">
           <Header/>
