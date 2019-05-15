@@ -3,13 +3,6 @@ import Container from '../../components/styled/container';
 import Scoreboard from '../../components/scoreboard';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scoresMatrix: this.getScoresMatrix(props.boxscores, props.isMobile)
-    }
-  }
-
   getScoresMatrix(scores = [], isMobile) {
     let scoresMatrix = []
     let mod = 1;
@@ -29,15 +22,9 @@ class Home extends Component {
     return scoresMatrix;
   }
 
-  getBoxscoresByDate(){
-    const { getBoxscoresByDate } = this.props;
-    getBoxscoresByDate('05/07/2019');
-  }
-
-
   render() {
-    const { scoresMatrix } = this.state;
-    const { boxscores } = this.props;
+    const { boxscores, isMobile } = this.props;
+    const scoresMatrix = this.getScoresMatrix(boxscores, isMobile);
     return (
       <Container padding='0' margin="auto">
         {boxscores.length > 0 && 
