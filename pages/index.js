@@ -11,9 +11,11 @@ import * as util from '../src/util';
 class Home extends Component {
   static async getInitialProps({ req, query }) {
     const isMobile = util.isMobile(req);
-    const date = query.date || Home.getDate();
-    const boxscores = await dugoutApi.getBoxscoresByDate(date);
-    return { boxscores, isMobile, date };
+    const fullDate = query.date || Home.getDate();
+    const day = moment(fullDate, "L").format('ddd');
+    const date = moment(fullDate, "L").format('DD');
+    const boxscores = await dugoutApi.getBoxscoresByDate(fullDate);
+    return { boxscores, isMobile, fullDate, day, date };
   }
 
   static getDate(){
@@ -25,10 +27,14 @@ class Home extends Component {
   }
 
   render() {
-    const { boxscores, isMobile, date } = this.props;
+    const { boxscores, isMobile, fullDate, day, date } = this.props;
     return (
       <MainLayout>
-        <ActionBar date={date} didChangeDate={Home.didChangeDate}/>
+        <ActionBar
+          fullDate={fullDate}
+          day={day}
+          date={date}
+          didChangeDate={Home.didChangeDate}/>
         <HomeView
           boxscores={ boxscores || [] }
           isMobile={ isMobile }
