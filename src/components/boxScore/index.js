@@ -21,14 +21,14 @@ class Boxscore extends Component {
     this.state = {
       isExpanded: props.expand || false,
       isEnabled: props.score.status === 'Final',
-      allowedToExpand: this.allowedToExpand(props.score.status.statusCode),
+      allowedToExpand: this.allowedToExpand(props.score.status.abstractGameCode),
     }
   }
 
   shouldComponentUpdate(nextProps) {
     if(nextProps.score._id !== this.props.score._id) {
       this.setState({
-        allowedToExpand: this.allowedToExpand(nextProps.score.status.statusCode),
+        allowedToExpand: this.allowedToExpand(nextProps.score.status.abstractGameCode),
       })
     }
     return true;
