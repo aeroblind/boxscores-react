@@ -21,8 +21,17 @@ class Boxscore extends Component {
     this.state = {
       isExpanded: props.expand || false,
       isEnabled: props.score.status === 'Final',
-      allowedToExpand: this.allowedToExpand()
+      allowedToExpand: this.allowedToExpand(props.score.status.statusCode),
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if(nextProps.score._id !== this.props.score._id) {
+      this.setState({
+        allowedToExpand: this.allowedToExpand(nextProps.score.status.statusCode),
+      })
+    }
+    return true;
   }
 
   expandBoxscore(e){
@@ -31,10 +40,8 @@ class Boxscore extends Component {
     })
   }
 
-  allowedToExpand(){
-    const { score } = this.props;
-    const { abstractGameCode } = score.status;
-    return (abstractGameCode === abstractGameCodes.final || abstractGameCode === abstractGameCodes.live); 
+  allowedToExpand(gameCode){
+    return (gameCode === abstractGameCodes.final || gameCode === abstractGameCodes.live); 
   }
 
   didClickBoxscore(){
