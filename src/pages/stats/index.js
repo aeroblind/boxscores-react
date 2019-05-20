@@ -10,107 +10,49 @@ class Stats extends Component {
   }
 
   render() {
+    const { leagueLeaders } = this.props;
     return (
       <div>
-        <Container
-        >
-          <FlexBox>
-            <Container
-              maxWidth="150px"
-              backgroundColor="white"
-              margin="8px"
-              borderRadius="5px"
-              borderColor={theme.colors.medium}
-              borderWidth="1px"
-              borderStyle="solid"
-              flexGrow={1}
-            >
-              <div><span style={{color: theme.colors.dark}}><b>Homeruns</b></span></div>
-              <table style={{width: '100%'}}>
-                <tbody>
-                  <tr>
-                    <th width='20%'></th>
-                    <th width="auto"></th>
-                    <th width="20%"></th>
-                  </tr>
-                  {[1,1,1,1,1,1,1,1,1,1].map(_ => 
-                    {
-                      return (
+        <Container padding="0" margin="auto">
+          <FlexBox flexWrap="wrap">
+            { leagueLeaders.map((leagueLeader, index) => {
+                return (
+                  <Container
+                    key={index}
+                    maxWidth="150px"
+                    backgroundColor="white"
+                    margin="8px"
+                    borderRadius="5px"
+                    borderColor={theme.colors.medium}
+                    borderWidth="1px"
+                    borderStyle="solid"
+                    flexGrow={1}
+                  >
+                    <div><span style={{color: theme.colors.dark}}><b>{leagueLeader.leaderCategory}</b></span></div>
+                    <table style={{width: '100%'}}>
+                      <tbody>
                         <tr>
-                          <td style={{textAlign: "left"}}>Hou</td>
-                          <td style={{textAlign: "left"}}>Altuve, J</td>
-                          <td style={{textAlign: "right"}}>15</td>
+                          <th width='20%'></th>
+                          <th width="auto"></th>
+                          <th width="20%"></th>
                         </tr>
-                      )
-                    })
-                  }
-                </tbody>
-              </table>
-            </Container>
-            <Container
-              maxWidth="150px"
-              backgroundColor="white"
-              margin="8px"
-              borderRadius="5px"
-              borderColor={theme.colors.medium}
-              borderWidth="1px"
-              borderStyle="solid"
-              flexGrow={1}
-            >
-              <div><span style={{color: theme.colors.dark}}><b>RBIs</b></span></div>
-              <table style={{width: '100%'}}>
-                <tbody>
-                  <tr>
-                    <th width='20%'></th>
-                    <th width="auto"></th>
-                    <th width="20%"></th>
-                  </tr>
-                  {[1,1,1,1,1,1,1,1,1,1].map(_ => 
-                    {
-                      return (
-                        <tr>
-                          <td style={{textAlign: "left"}}>Hou</td>
-                          <td style={{textAlign: "left"}}>Altuve, J</td>
-                          <td style={{textAlign: "right"}}>100</td>
-                        </tr>
-                      )
-                    })
-                  }
-                </tbody>
-              </table>
-            </Container>
-            <Container
-              maxWidth="150px"
-              backgroundColor="white"
-              margin="8px"
-              borderRadius="5px"
-              borderColor={theme.colors.medium}
-              borderWidth="1px"
-              borderStyle="solid"
-              flexGrow={1}
-            >
-              <div><span style={{color: theme.colors.dark}}><b>RBIs</b></span></div>
-              <table style={{width: '100%'}}>
-                <tbody>
-                  <tr>
-                    <th width='20%'></th>
-                    <th width="auto"></th>
-                    <th width="20%"></th>
-                  </tr>
-                  {[1,1,1,1,1,1,1,1,1,1].map(_ => 
-                    {
-                      return (
-                        <tr>
-                          <td style={{textAlign: "left"}}>Hou</td>
-                          <td style={{textAlign: "left"}}>Altuve, J</td>
-                          <td style={{textAlign: "right"}}>100</td>
-                        </tr>
-                      )
-                    })
-                  }
-                </tbody>
-              </table>
-            </Container>
+                        {leagueLeader.leagueleaders.map((leader, index) => 
+                          {
+                            return (
+                              <tr key={index}>
+                                <td style={{textAlign: "left"}}>{ leader.teamAbbreviation }</td>
+                                <td style={{textAlign: "left"}}>{ leader.lastFirstName }</td>
+                                <td style={{textAlign: "right"}}>{ leader.value }</td>
+                              </tr>
+                            )
+                          })
+                        }
+                      </tbody>
+                    </table>
+                  </Container>
+                )
+              })
+            }
           </FlexBox>
         </Container>
       </div>

@@ -8,3 +8,9 @@ export function getBoxscoresByDate(date) {
   return axios.get(url)
   .then(response => { return response.data.boxscores })
 }
+
+export function getLeagueLeaders() {
+  const url = `${baseUrl}/mlb/leagueLeaders`;
+  return axios.get(url)
+  .then(response => { return response.data })
+}
