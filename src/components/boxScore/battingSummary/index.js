@@ -1,6 +1,7 @@
 import React from 'react';
 import * as helper from '../../../util/summaryHelpers';
 import styled from 'styled-components';
+import config from '../../../../config';
 
 const BatStatTH = styled.th`
   text-align: ${props => props.textAlign || 'right'};
@@ -60,8 +61,8 @@ const BattingSummary = ({
     )
   };
 
-  const listBattingTextData = () => {
-    const battingFieldList = getFieldList(fieldingAndBattingInfo[0]);
+  const listBattingTextData = (allowedCategories) => {
+    const battingFieldList = getFieldList(fieldingAndBattingInfo[0], allowedCategories.batting);
     const baserunningFieldList = getFieldList(fieldingAndBattingInfo[1]);
     const fieldingFieldList = getFieldList(fieldingAndBattingInfo[2]);
     return helper.createDisplayElements([fieldingFieldList, battingFieldList, baserunningFieldList]);
@@ -72,7 +73,7 @@ const BattingSummary = ({
       {listTeamBatting(away_sname, awayBatters, 'awayBatters')}
       {listTeamBatting(home_sname, homeBatters, 'homeBatters')}
       <div style={{margin: "2px 0 0 0"}}>
-        { listBattingTextData() }
+        { listBattingTextData(config.categories) }
       </div>
     </div>
   )

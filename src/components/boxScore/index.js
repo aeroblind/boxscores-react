@@ -20,7 +20,6 @@ class Boxscore extends Component {
 
     this.state = {
       isExpanded: props.expand || false,
-      isEnabled: props.score.status === 'Final',
       allowedToExpand: this.allowedToExpand(props.score.status.abstractGameCode),
     }
   }
@@ -34,7 +33,7 @@ class Boxscore extends Component {
     return true;
   }
 
-  expandBoxscore(e){
+  expandBoxscore(){
     this.setState({
       isExpanded: !this.state.isExpanded,
     })
